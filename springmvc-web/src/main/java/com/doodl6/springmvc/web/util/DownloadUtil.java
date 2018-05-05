@@ -24,7 +24,7 @@ public class DownloadUtil {
         try {
             workbook = ExcelUtil.createHSSFWorkbook(templatePath);
         } catch (Exception e) {
-            throw new FileNotFoundException("模板文件未找到");
+            throw new FileNotFoundException("文件未找到");
         }
 
         ExcelUtil.fillExcelData(workbook, dataList);
@@ -35,25 +35,16 @@ public class DownloadUtil {
     /**
      * 输出excel数据
      */
-    private static void downExcel(HttpServletResponse response, HSSFWorkbook workbook, String fileName) throws IOException {
+    public static void downExcel(HttpServletResponse response, HSSFWorkbook workbook, String fileName) throws IOException {
         OutputStream os = null;
         try {
             response.reset();
-            // 编码处理，对于操作系统 （ linux默认 utf-8,windows 默认 GBK)
-            String defaultEncoding = System.getProperty("file.encoding");
-            if (defaultEncoding != null && defaultEncoding.equals("UTF-8")) {
-                response.addHeader("Content-Disposition", "attachment;filename=" + new String(fileName.getBytes("UTF-8"), "iso-8859-1"));
-            } else {
-                response.addHeader("Content-Disposition", "attachment;filename=" + new String(fileName.getBytes(), "iso-8859-1"));
-            }
-
-            // 设置response的Header
+            response.addHeader("Content-Disposition", "attachment;filename=" + new String(fileName.getBytes("UTF-8"), "iso-8859-1"));
             response.setContentType("application/vnd.ms-excel");
 
             os = response.getOutputStream();
             workbook.write(os);
-            long len = workbook.getBytes().length;
-            response.addHeader("Content-Length", String.valueOf(len));
+            response.addIntHeader("Content-Length", workbook.getBytes().length);
             os.flush();
         } finally {
             IOUtils.closeQuietly(os);

@@ -9,6 +9,11 @@
 
     <mvc:resources mapping="/jsp/**/" location="/jsp/"/>
 
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 指定所上传文件的总大小不能超过2000KB。-->
+        <property name="maxUploadSize" value="2000000"/>
+    </bean>
+
     <mvc:annotation-driven>
         <mvc:message-converters register-defaults="false">
             <!-- StringHttpMessageConverter编码为UTF-8，防止乱码-->
@@ -38,14 +43,6 @@
                         <!-- 这里顺序不能反，一定先写text/html,不然ie下出现下载提示 -->
                         <value>text/html;charset=UTF-8</value>
                         <value>application/json;charset=UTF-8</value>
-                    </list>
-                </property>
-                <property name="features">
-                    <!--这个地方加上这个功能吧，能自己配置一些东西，比如时间的格式化，null输出""等等-->
-                    <list>
-                        <value>QuoteFieldNames</value>
-                        <!--关闭循环引用-->
-                        <value>DisableCircularReferenceDetect</value>
                     </list>
                 </property>
             </bean>

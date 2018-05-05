@@ -13,6 +13,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.doodl6</groupId>
+            <artifactId>springmvc-service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
         </dependency>
@@ -27,19 +33,13 @@
         </dependency>
 
         <dependency>
-            <groupId>com.doodl6</groupId>
-            <artifactId>springmvc-service</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.github.sgroschupf</groupId>
-            <artifactId>zkclient</artifactId>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
         </dependency>
 
     </dependencies>
@@ -63,7 +63,7 @@
                 <configuration>
                     <port>2018</port>
                     <path>/</path>
-                    <uriEncoding>utf-8</uriEncoding>
+                    <uriEncoding>UTF-8</uriEncoding>
                     <systemProperties>
                         <JAVA_OPTS>-Xms128m -Xmx512m</JAVA_OPTS>
                     </systemProperties>
@@ -85,7 +85,7 @@
                 </configuration>
             </plugin>
 
-            <!-- 制定profile打包的时候为 utf-8，不然会有乱码问题。 -->
+            <!-- 制定profile打包的时候为 UTF-8，不然会有乱码问题。 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -118,7 +118,6 @@
 
         <profile>
             <id>production</id>
-            <!-- 告诉下面的 war 插件从哪里取配置文件复制到输出目录 -->
             <properties>
                 <configPath>src/main/resources/config/production</configPath>
             </properties>

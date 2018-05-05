@@ -1,7 +1,7 @@
-# Compiled class file
+# Compiled class files
 *.class
 
-# Log file
+# Log files
 *.log
 logs/
 
@@ -9,3 +9,5 @@ logs/
 .idea/
 *.iml
 
+# Temp files
+tmp/
