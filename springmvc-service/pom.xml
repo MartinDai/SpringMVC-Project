@@ -16,5 +16,10 @@
             <artifactId>springmvc-dao</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.whalin</groupId>
+            <artifactId>Memcached-Java-Client</artifactId>
+        </dependency>
     </dependencies>
 </project>

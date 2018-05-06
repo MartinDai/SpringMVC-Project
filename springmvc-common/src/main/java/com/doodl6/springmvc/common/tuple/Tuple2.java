@@ -1,9 +1,11 @@
 package com.doodl6.springmvc.common.tuple;
 
+import java.io.Serializable;
+
 /**
  * 元组
  */
-public class Tuple2<P1, P2> {
+public class Tuple2<P1, P2> implements Serializable {
 
     private P1 p1;
 
