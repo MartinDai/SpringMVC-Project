@@ -13,7 +13,7 @@
 
 - 文件上传下载
 - Excel导入导出
-- memcached缓存实现
+- 多种memcached client实现
 
 ## 工具包
 
