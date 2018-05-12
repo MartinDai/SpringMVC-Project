@@ -1,17 +1,19 @@
-package com.doodl6.springmvc.service.cache;
+package com.doodl6.springmvc.service.cache.memcached;
 
+import com.alibaba.fastjson.JSON;
+import com.doodl6.springmvc.service.cache.memcached.base.MemCachedService;
 import com.whalin.MemCached.MemCachedClient;
 import com.whalin.MemCached.SockIOPool;
-
-import java.io.Serializable;
+import org.springframework.stereotype.Component;
 
 /**
- *
+ * Memcached-Java-Client实现
  * Created by daixiaoming on 2018/5/6.
  */
-public class MemCache {
+@Component
+public class MemCachedImpl implements MemCachedService {
 
-    private static final MemCachedClient mcc = new MemCachedClient();
+    private static final MemCachedClient MEM_CACHED_CLIENT = new MemCachedClient();
 
     static {
         String[] servers =
@@ -52,13 +54,22 @@ public class MemCache {
 
         // initialize the connection pool
         pool.initialize();
+
+        //存储的数据使用JSON格式，兼容不同客户端,如果是单一客户端可以不需要
+        MEM_CACHED_CLIENT.setTransCoder(new JSONObjectTransCoder());
     }
 
-    public static void set(String key, Serializable value) {
-        mcc.set(key, value);
+    @Override
+    public void set(String key, Object value) {
+        MEM_CACHED_CLIENT.set(key, value);
     }
 
-    public static <T> T get(String key, Class<T> type) {
-        return (T) mcc.get(key);
+    @Override
+    public <T> T get(String key, Class<T> type) {
+        String value = (String) MEM_CACHED_CLIENT.get(key);
+        if (value != null) {
+            return JSON.parseObject(value, type);
+        }
+        return null;
     }
 }

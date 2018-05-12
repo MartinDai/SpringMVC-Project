@@ -153,6 +153,12 @@
                 <artifactId>Memcached-Java-Client</artifactId>
                 <version>3.0.2</version>
             </dependency>
+            <dependency>
+                <groupId>com.googlecode.xmemcached</groupId>
+                <artifactId>xmemcached</artifactId>
+                <version>2.4.3</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

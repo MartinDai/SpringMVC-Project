@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 元组
  */
-public class Tuple2<P1, P2> implements Serializable {
+public class Tuple2<P1, P2> {
 
     private P1 p1;
 
