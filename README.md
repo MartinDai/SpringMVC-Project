@@ -8,6 +8,7 @@
 - slf4j-log4j
 - guava
 - fastjson
+- dubbo
 
 ## 功能
 

@@ -1,11 +1,15 @@
 package com.doodl6.springmvc.web.controller;
 
+import com.doodl6.springmvc.client.api.FirstDubboService;
+import com.doodl6.springmvc.client.request.GetDubboInfoRequest;
+import com.doodl6.springmvc.client.response.GetDubboInfoResponse;
 import com.doodl6.springmvc.common.util.ExcelUtil;
 import com.doodl6.springmvc.service.cache.Model;
 import com.doodl6.springmvc.service.cache.memcached.base.MemCachedService;
 import com.doodl6.springmvc.web.constant.WebConstants;
 import com.doodl6.springmvc.web.response.BaseResponse;
 import com.doodl6.springmvc.web.response.MapResponse;
+import com.doodl6.springmvc.web.response.ResponseCode;
 import com.doodl6.springmvc.web.util.DownloadUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -34,6 +38,9 @@ public class IndexController extends BaseController {
 
     @Resource
     private MemCachedService xmemcachedImpl;
+
+    @Resource
+    private FirstDubboService firstDubboService;
 
     /**
      * 普通接口
@@ -116,6 +123,27 @@ public class IndexController extends BaseController {
 
         Model value = memCachedImpl.get(key, Model.class);
         mapResponse.appendData("key", value);
+
+        return mapResponse;
+    }
+
+    /**
+     * 获取dubbo信息
+     */
+    @RequestMapping("/getDubboInfo")
+    public MapResponse getDubboInfo(Long id) {
+        MapResponse mapResponse = new MapResponse();
+
+        GetDubboInfoRequest getDubboInfoRequest = new GetDubboInfoRequest();
+        getDubboInfoRequest.setId(id);
+        GetDubboInfoResponse getDubboInfoResponse = firstDubboService.getDubboInfo(getDubboInfoRequest);
+        if (getDubboInfoResponse.isSuccess()) {
+            mapResponse.appendData("dubboInfo", getDubboInfoResponse.getDubboDomain());
+        } else {
+            mapResponse.setResult(ResponseCode.BIZ_ERROR);
+            mapResponse.setMessage(getDubboInfoResponse.getErrorMsg());
+        }
+
 
         return mapResponse;
     }

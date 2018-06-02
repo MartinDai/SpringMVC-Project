@@ -20,4 +20,9 @@ public final class ResponseCode {
      */
     public static final int PARAMETER_ERROR = 300;
 
+    /**
+     * 业务异常
+     */
+    public static final int BIZ_ERROR = 400;
+
 }

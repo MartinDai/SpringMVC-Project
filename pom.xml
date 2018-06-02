@@ -12,6 +12,8 @@
         <module>springmvc-service</module>
         <module>springmvc-common</module>
         <module>springmvc-dao</module>
+        <module>springmvc-client</module>
+        <module>springmvc-dubbo-service</module>
     </modules>
 
     <properties>
@@ -21,6 +23,7 @@
         <maven.test.skip>true</maven.test.skip>
         <spring.version>4.3.14.RELEASE</spring.version>
         <additionalparam>-Xdoclint:none</additionalparam>
+        <dubbo.version>2.5.3</dubbo.version>
     </properties>
 
     <dependencyManagement>
@@ -159,6 +162,19 @@
                 <version>2.4.3</version>
             </dependency>
 
+            <!-- dubbo -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>${dubbo.version}</version>
+            </dependency>
+
+            <!-- zookeeper -->
+            <dependency>
+                <groupId>com.github.sgroschupf</groupId>
+                <artifactId>zkclient</artifactId>
+                <version>0.1</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
