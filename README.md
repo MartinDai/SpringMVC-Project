@@ -8,7 +8,8 @@
 - slf4j-log4j
 - guava
 - fastjson
-- dubbo
+- dubbo(RPC 微服务)
+- sharding-sphere(分库分表)
 
 ## 功能
 
