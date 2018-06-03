@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:sharding="http://shardingsphere.io/schema/shardingsphere/sharding"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://shardingsphere.io/schema/shardingsphere/sharding
+                        http://shardingsphere.io/schema/shardingsphere/sharding/sharding.xsd">
+
+    <bean id="ds_0" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="${db1.url}"/>
+        <property name="username" value="${db1.name}"/>
+        <property name="password" value="${db1.password}"/>
+        <property name="filters" value="stat,config"/>
+        <property name="initialSize" value="5"/>
+        <property name="maxActive" value="${db.maxActive}"/>
+        <property name="maxWait" value="${db.maxWait}"/>
+    </bean>
+
+    <bean id="ds_1" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="${db2.url}"/>
+        <property name="username" value="${db2.name}"/>
+        <property name="password" value="${db2.password}"/>
+        <property name="filters" value="stat,config"/>
+        <property name="initialSize" value="5"/>
+        <property name="maxActive" value="${db.maxActive}"/>
+        <property name="maxWait" value="${db.maxWait}"/>
+    </bean>
+
+    <sharding:inline-strategy id="databaseStrategy" sharding-column="user_id"
+                              algorithm-expression="ds_$->{user_id % 2}"/>
+
+    <sharding:inline-strategy id="logTableStrategy" sharding-column="user_id"
+                              algorithm-expression="user_login_log_$->{user_id % 2}"/>
+
+    <sharding:data-source id="shardingDataSource">
+        <sharding:sharding-rule data-source-names="ds_0,ds_1" default-data-source-name="ds_0">
+            <sharding:table-rules>
+                <sharding:table-rule logic-table="user_login_log"
+                                     actual-data-nodes="ds_$->{0..1}.user_login_log_$->{0..1}"
+                                     database-strategy-ref="databaseStrategy"
+                                     table-strategy-ref="logTableStrategy"/>
+            </sharding:table-rules>
+        </sharding:sharding-rule>
+    </sharding:data-source>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="shardingDataSource"/>
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+        <property name="typeAliasesPackage" value="com.doodl6.springmvc.dao.entity"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.doodl6.springmvc.dao.api"/>
+        <property name="annotationClass" value="org.apache.ibatis.annotations.Mapper"/>
+    </bean>
+</beans>

@@ -2,7 +2,7 @@ package com.doodl6.springmvc.common.util;
 
 
 import com.doodl6.springmvc.common.tuple.Tuple2;
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;

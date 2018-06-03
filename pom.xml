@@ -23,7 +23,28 @@
         <maven.test.skip>true</maven.test.skip>
         <spring.version>4.3.14.RELEASE</spring.version>
         <additionalparam>-Xdoclint:none</additionalparam>
+        <junit.version>4.12</junit.version>
+        <servlet.version>3.1.0</servlet.version>
+        <slf4j.version>1.7.21</slf4j.version>
+        <commons.lang3.version>3.7</commons.lang3.version>
+        <commons.collections4.version>4.1</commons.collections4.version>
+        <commons.io.version>2.6</commons.io.version>
+        <commons.math3.version>3.6.1</commons.math3.version>
+        <commons.fileupload.version>1.3.3</commons.fileupload.version>
+        <commons.email.version>1.5</commons.email.version>
+        <guava.version>23.0</guava.version>
+        <fastjson.version>1.2.47</fastjson.version>
+        <poi.version>3.17</poi.version>
+        <httpclient.version>4.5.5</httpclient.version>
+        <mysql.version>8.0.11</mysql.version>
+        <memcached.version>3.0.2</memcached.version>
+        <xmemcached.version>2.4.3</xmemcached.version>
         <dubbo.version>2.5.3</dubbo.version>
+        <zk.version>0.1</zk.version>
+        <mybatis.version>3.4.6</mybatis.version>
+        <mybatis.spring.version>1.3.2</mybatis.spring.version>
+        <druid.version>1.1.10</druid.version>
+        <sharding-jdbc.version>3.0.0.M1</sharding-jdbc.version>
     </properties>
 
     <dependencyManagement>
@@ -31,8 +52,8 @@
             <!-- servlet -->
             <dependency>
                 <groupId>javax.servlet</groupId>
-                <artifactId>servlet-api</artifactId>
-                <version>2.5</version>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${servlet.version}</version>
                 <scope>provided</scope>
             </dependency>
 
@@ -40,7 +61,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.11</version>
+                <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
 
@@ -57,6 +78,16 @@
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
                 <version>${spring.version}</version>
                 <scope>test</scope>
@@ -66,100 +97,88 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.7.21</version>
+                <version>${slf4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
-                <version>1.7.21</version>
-            </dependency>
-
-            <!-- mysql -->
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>5.1.14</version>
+                <version>${slf4j.version}</version>
             </dependency>
 
             <!-- apache commons依赖 -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>3.3</version>
+                <version>${commons.lang3.version}</version>
             </dependency>
             <dependency>
-                <groupId>commons-collections</groupId>
-                <artifactId>commons-collections</artifactId>
-                <version>3.2.1</version>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${commons.collections4.version}</version>
             </dependency>
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>2.4</version>
+                <version>${commons.io.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-math3</artifactId>
-                <version>3.2</version>
-            </dependency>
-
-            <!-- httpClient工具包 -->
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>4.3</version>
-            </dependency>
-
-            <!-- Excel工具包 -->
-            <dependency>
-                <groupId>org.apache.poi</groupId>
-                <artifactId>poi</artifactId>
-                <version>3.11</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.poi</groupId>
-                <artifactId>poi-ooxml</artifactId>
-                <version>3.11</version>
-            </dependency>
-
-            <!-- alibaba开源的JSON库 -->
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>1.2.29</version>
+                <version>${commons.math3.version}</version>
             </dependency>
 
             <!-- 支持文件上传 -->
             <dependency>
                 <groupId>commons-fileupload</groupId>
                 <artifactId>commons-fileupload</artifactId>
-                <version>1.3.1</version>
+                <version>${commons.fileupload.version}</version>
             </dependency>
 
             <!-- 邮件支持 -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-email</artifactId>
-                <version>1.2</version>
+                <version>${commons.email.version}</version>
+            </dependency>
+
+            <!-- httpClient工具包 -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
+
+            <!-- Excel工具包 -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+
+            <!-- alibaba开源的JSON库 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
             </dependency>
 
             <!-- Google 开源的集合框架包 -->
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>23.0</version>
+                <version>${guava.version}</version>
             </dependency>
 
             <!-- Memcached Java 客户端 -->
             <dependency>
                 <groupId>com.whalin</groupId>
                 <artifactId>Memcached-Java-Client</artifactId>
-                <version>3.0.2</version>
+                <version>${memcached.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.googlecode.xmemcached</groupId>
                 <artifactId>xmemcached</artifactId>
-                <version>2.4.3</version>
+                <version>${xmemcached.version}</version>
             </dependency>
 
             <!-- dubbo -->
@@ -167,13 +186,50 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>dubbo</artifactId>
                 <version>${dubbo.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>spring</artifactId>
+                        <groupId>org.springframework</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <!-- zookeeper -->
             <dependency>
                 <groupId>com.github.sgroschupf</groupId>
                 <artifactId>zkclient</artifactId>
-                <version>0.1</version>
+                <version>${zk.version}</version>
+            </dependency>
+
+            <!-- mysql -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+
+            <!-- mybatis -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${mybatis.spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.shardingsphere</groupId>
+                <artifactId>sharding-jdbc-spring-namespace</artifactId>
+                <version>${sharding-jdbc.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -1,9 +1,8 @@
 package com.doodl6.springmvc.common.util;
 
 import com.google.common.collect.Lists;
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -60,7 +59,6 @@ public final class ListUtil {
                 System.out.print(str + "\t");
             }
             System.out.println("END");
-            System.out.println();
         }
     }
 

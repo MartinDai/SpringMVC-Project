@@ -27,7 +27,6 @@ public class ExceptionAdvice {
         if (e instanceof IllegalArgumentException) {
             response.setMessage(e.getMessage());
             response.setResult(ResponseCode.PARAMETER_ERROR);
-            return new BaseResponse<>();
         } else {
             LOGGER.error(LogUtil.buildLog("请求出现异常", request.getRequestURI(), request.getParameterMap()), e);
 

@@ -1,8 +1,7 @@
 package com.doodl6.springmvc.common.util;
 
 import com.doodl6.springmvc.common.model.RowModel;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.io.IOUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -31,13 +30,9 @@ public final class ExcelUtil {
      * 根据模板创建Excel对象
      */
     public static HSSFWorkbook createHSSFWorkbook(String templatePath) throws IOException {
-        InputStream is = null;
-        try {
-            is = new FileInputStream(templatePath);
+        try (InputStream is = new FileInputStream(templatePath)) {
             POIFSFileSystem poifsFileSystem = new POIFSFileSystem(is);
             return new HSSFWorkbook(poifsFileSystem);
-        } finally {
-            IOUtils.closeQuietly(is);
         }
     }
 
@@ -51,9 +46,9 @@ public final class ExcelUtil {
     /**
      * 填充excel数据
      */
-    public static HSSFWorkbook fillExcelData(HSSFWorkbook workbook, List<RowModel> dataList) {
+    public static void fillExcelData(HSSFWorkbook workbook, List<RowModel> dataList) {
         if (workbook == null) {
-            return null;
+            return;
         }
 
         //读取excel模板
@@ -106,8 +101,6 @@ public final class ExcelUtil {
                 }
             }
         }
-
-        return workbook;
     }
 
 }
