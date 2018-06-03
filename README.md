@@ -15,7 +15,7 @@
 
 - 文件上传下载
 - Excel导入导出
-- 多种memcached client实现
+- memcached服务(Memcached-Java-Client和xmemcached两种client实现)
 
 ## 工具包
 
