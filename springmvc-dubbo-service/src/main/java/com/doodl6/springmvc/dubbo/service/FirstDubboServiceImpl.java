@@ -34,6 +34,7 @@ public class FirstDubboServiceImpl implements FirstDubboService {
             LOGGER.error("获取dubbo信息出现异常", e);
             response.setErrorMsg("未知异常");
         }
+
         return response;
     }
 

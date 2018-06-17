@@ -1,7 +1,6 @@
 package com.doodl6.springmvc.web.util;
 
 import com.alibaba.fastjson.JSON;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,17 +51,13 @@ public final class ResponseUtil {
     }
 
     private static void writeResponse(HttpServletResponse response, String content, String contentType) {
-        Writer writer = null;
-        try {
-            response.setContentType(contentType);
-            response.setCharacterEncoding("utf-8");
-            writer = response.getWriter();
+        response.setContentType(contentType);
+        response.setCharacterEncoding("utf-8");
+        try (Writer writer = response.getWriter()) {
             writer.write(content);
             writer.flush();
         } catch (IOException e) {
             LOGGER.error("输出客户端内容出现异常", e);
-        } finally {
-            IOUtils.closeQuietly(writer);
         }
     }
 }
