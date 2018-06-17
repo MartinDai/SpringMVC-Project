@@ -39,6 +39,7 @@
         <mysql.version>8.0.11</mysql.version>
         <memcached.version>3.0.2</memcached.version>
         <xmemcached.version>2.4.3</xmemcached.version>
+        <lettuce.version>5.0.4.RELEASE</lettuce.version>
         <dubbo.version>2.5.3</dubbo.version>
         <zk.version>0.1</zk.version>
         <mybatis.version>3.4.6</mybatis.version>
@@ -169,7 +170,7 @@
                 <version>${guava.version}</version>
             </dependency>
 
-            <!-- Memcached Java 客户端 -->
+            <!-- Memcached client -->
             <dependency>
                 <groupId>com.whalin</groupId>
                 <artifactId>Memcached-Java-Client</artifactId>
@@ -179,6 +180,13 @@
                 <groupId>com.googlecode.xmemcached</groupId>
                 <artifactId>xmemcached</artifactId>
                 <version>${xmemcached.version}</version>
+            </dependency>
+
+            <!--redis client -->
+            <dependency>
+                <groupId>io.lettuce</groupId>
+                <artifactId>lettuce-core</artifactId>
+                <version>${lettuce.version}</version>
             </dependency>
 
             <!-- dubbo -->
@@ -239,6 +247,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
                 <configuration>
                     <source>${jdk.version}</source>
                     <target>${jdk.version}</target>

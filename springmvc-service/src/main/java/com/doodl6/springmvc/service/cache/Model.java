@@ -1,9 +1,11 @@
 package com.doodl6.springmvc.service.cache;
 
+import java.io.Serializable;
+
 /**
  * Created by daixiaoming on 2018/5/12.
  */
-public class Model {
+public class Model implements Serializable {
 
     private String key;
 

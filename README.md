@@ -16,6 +16,7 @@
 - 文件上传下载
 - Excel导入导出
 - memcached服务(Memcached-Java-Client和xmemcached两种client实现)
+- redis服务（lettuce客户端）
 
 ## 工具包
 

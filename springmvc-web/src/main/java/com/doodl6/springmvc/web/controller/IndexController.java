@@ -100,34 +100,6 @@ public class IndexController extends BaseController {
     }
 
     /**
-     * 设置缓存接口
-     */
-    @RequestMapping("/setCache")
-    public BaseResponse<Map<String, Object>> setCache(String key, String value) {
-        MapResponse mapResponse = new MapResponse();
-
-        Model model = new Model(key, value);
-        xmemcachedImpl.set(key, model);
-        model = xmemcachedImpl.get(key, Model.class);
-        mapResponse.appendData("key", model);
-
-        return mapResponse;
-    }
-
-    /**
-     * 获取缓存接口
-     */
-    @RequestMapping("/getCache")
-    public MapResponse getCache(String key) {
-        MapResponse mapResponse = new MapResponse();
-
-        Model value = memCachedImpl.get(key, Model.class);
-        mapResponse.appendData("key", value);
-
-        return mapResponse;
-    }
-
-    /**
      * 获取dubbo信息
      */
     @RequestMapping("/getDubboInfo")
