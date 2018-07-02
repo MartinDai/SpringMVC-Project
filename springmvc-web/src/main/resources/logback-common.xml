@@ -1,0 +1,46 @@
+<included>
+    <variable resource="logback.properties" />
+
+    <appender name="TraceAppender" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_PATH}/trace.log</file>
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10} [%file : %line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="DebugAppender" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_PATH}/debug.log</file>
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10} [%file : %line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="InfoAppender" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_PATH}/info.log</file>
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10} [%file : %line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="WarnAppender" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_PATH}/warn.log</file>
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10} [%file : %line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ErrorAppender" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_PATH}/error.log</file>
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10} [%file : %line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.doodl6.springmvc.web.controller" level="TRACE" additivity="false">
+        <appender-ref ref="TraceAppender"/>
+        <appender-ref ref="DebugAppender"/>
+        <appender-ref ref="InfoAppender"/>
+        <appender-ref ref="WarnAppender"/>
+        <appender-ref ref="ErrorAppender"/>
+    </logger>
+</included>

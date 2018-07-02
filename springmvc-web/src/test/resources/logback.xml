@@ -1,18 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<configuration debug="true" scan="true" scanPeriod="30 seconds">
+<configuration debug="true" scan="true" scanPeriod="5 seconds">
 
     <include resource="logback-common.xml"/>
 
     <appender name="ConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>
-                %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
-            </pattern>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
     <root level="DEBUG">
         <appender-ref ref="ConsoleAppender"/>
     </root>
-
 </configuration>
