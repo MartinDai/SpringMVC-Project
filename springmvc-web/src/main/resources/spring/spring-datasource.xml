@@ -8,7 +8,7 @@
                         http://shardingsphere.io/schema/shardingsphere/sharding/sharding.xsd">
 
     <bean id="ds_0" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
         <property name="url" value="${db1.url}"/>
         <property name="username" value="${db1.name}"/>
         <property name="password" value="${db1.password}"/>

@@ -4,7 +4,6 @@ import com.doodl6.springmvc.client.api.FirstDubboService;
 import com.doodl6.springmvc.client.request.GetDubboInfoRequest;
 import com.doodl6.springmvc.client.response.GetDubboInfoResponse;
 import com.doodl6.springmvc.common.util.ExcelUtil;
-import com.doodl6.springmvc.service.cache.Model;
 import com.doodl6.springmvc.service.cache.memcached.base.MemCachedService;
 import com.doodl6.springmvc.web.constant.WebConstants;
 import com.doodl6.springmvc.web.response.BaseResponse;
@@ -15,6 +14,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +24,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * 首页控制类
@@ -39,7 +38,7 @@ public class IndexController extends BaseController {
     @Resource
     private MemCachedService xmemcachedImpl;
 
-    @Resource
+    @Autowired(required = false)
     private FirstDubboService firstDubboService;
 
     /**
@@ -118,6 +117,22 @@ public class IndexController extends BaseController {
 
 
         return mapResponse;
+    }
+
+    /**
+     * 测试打印日志
+     */
+    @RequestMapping("/testLog")
+    public BaseResponse<Void> testLog() {
+        BaseResponse<Void> response = new BaseResponse<>();
+
+        LOGGER.trace("test trace log");
+        LOGGER.debug("test debug log");
+        LOGGER.info("test info log");
+        LOGGER.warn("test warn log");
+        LOGGER.error("test error log");
+
+        return response;
     }
 
 }
