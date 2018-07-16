@@ -7,12 +7,13 @@ public class LogbackTest {
 
     public static void main(String[] args) {
 
-        Logger logger = LoggerFactory.getLogger("com.doodl6.springmvc.test.LogbackTest");
-        logger.debug("Hello world.");
+//        Logger logger = LoggerFactory.getLogger("com.doodl6.springmvc.web.controller");
+        Logger logger = LoggerFactory.getLogger(LogbackTest.class);
         logger.trace("Hello world trace.");
-
-        Logger traceLog = LoggerFactory.getLogger("trace");
-        traceLog.trace("trace test");
+        logger.debug("Hello world debug.");
+        logger.info("Hello world info.");
+        logger.warn("Hello world warn.");
+        logger.error("Hello world error.");
 
     }
 }
