@@ -61,4 +61,10 @@ public class XmemcachedImpl implements MemCachedService {
 
         return null;
     }
+
+    public static void main(String[] args) {
+        XmemcachedImpl xmemcached = new XmemcachedImpl();
+        xmemcached.set("a", "111");
+        System.out.println(xmemcached.get("a", String.class));
+    }
 }
