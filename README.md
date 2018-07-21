@@ -5,7 +5,7 @@
 ## 框架
 
 - SpringMVC
-- slf4j-log4j
+- logback
 - guava
 - fastjson
 - dubbo(RPC 微服务)
