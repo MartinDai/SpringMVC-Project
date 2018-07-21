@@ -9,7 +9,7 @@
             <totalSizeCap>3GB</totalSizeCap>
         </rollingPolicy>
         <encoder>
-            <pattern>%date %-5level [%thread] %logger{10} [%file : %line] %msg%n</pattern>
+            <pattern>%date %-5level [%file : %line] %msg%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>TRACE</level>
@@ -26,7 +26,7 @@
             <totalSizeCap>3GB</totalSizeCap>
         </rollingPolicy>
         <encoder>
-            <pattern>%date %-5level [%thread] %logger{10} [%file : %line] %msg%n</pattern>
+            <pattern>%date %-5level [%file : %line] %msg%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>DEBUG</level>
@@ -43,7 +43,7 @@
             <totalSizeCap>3GB</totalSizeCap>
         </rollingPolicy>
         <encoder>
-            <pattern>%date %-5level [%thread] %logger{10} [%file : %line] %msg%n</pattern>
+            <pattern>%date %-5level [%file : %line] %msg%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>INFO</level>
@@ -60,7 +60,7 @@
             <totalSizeCap>3GB</totalSizeCap>
         </rollingPolicy>
         <encoder>
-            <pattern>%date -5level [%thread] %logger{10} [%file : %line] %msg%n</pattern>
+            <pattern>%date -5level [%file : %line] %msg%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>WARN</level>
@@ -77,7 +77,7 @@
             <totalSizeCap>3GB</totalSizeCap>
         </rollingPolicy>
         <encoder>
-            <pattern>%date %-5level [%thread] %logger{10} [%file : %line] %msg%n</pattern>
+            <pattern>%date %-5level [%file : %line] %msg%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>ERROR</level>

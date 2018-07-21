@@ -4,7 +4,6 @@ import com.doodl6.springmvc.client.api.FirstDubboService;
 import com.doodl6.springmvc.client.request.GetDubboInfoRequest;
 import com.doodl6.springmvc.client.response.GetDubboInfoResponse;
 import com.doodl6.springmvc.common.util.ExcelUtil;
-import com.doodl6.springmvc.service.cache.memcached.base.MemCachedService;
 import com.doodl6.springmvc.web.constant.WebConstants;
 import com.doodl6.springmvc.web.response.BaseResponse;
 import com.doodl6.springmvc.web.response.MapResponse;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
@@ -31,12 +29,6 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/index")
 public class IndexController extends BaseController {
-
-    @Resource
-    private MemCachedService memCachedImpl;
-
-    @Resource
-    private MemCachedService xmemcachedImpl;
 
     @Autowired(required = false)
     private FirstDubboService firstDubboService;

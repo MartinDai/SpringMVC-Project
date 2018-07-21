@@ -4,7 +4,7 @@
 
     <appender name="infoConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%date %green(%-5level) [%thread] %logger{10} [%file : %line] %msg%n</pattern>
+            <pattern>%date %green(%-5level) [%file : %line] %msg%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>INFO</level>
@@ -15,7 +15,7 @@
 
     <appender name="errorConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%date %boldRed(%-5level) [%thread] %logger{10} [%file : %line] %msg%n</pattern>
+            <pattern>%date %boldRed(%-5level) [%file : %line] %msg%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>ERROR</level>
