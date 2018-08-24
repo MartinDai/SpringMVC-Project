@@ -119,13 +119,13 @@
                 <artifactId>slf4j-api</artifactId>
                 <version>${slf4j.version}</version>
             </dependency>
-            <!-- slf4j替换jcl -->
+            <!-- slf4j桥接jcl -->
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>jcl-over-slf4j</artifactId>
                 <version>1.7.25</version>
             </dependency>
-            <!-- slf4j替换log4j -->
+            <!-- slf4j桥接log4j -->
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>log4j-over-slf4j</artifactId>
@@ -133,9 +133,15 @@
             </dependency>
             <!-- logback -->
             <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>1.2.3</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.logback-extensions</groupId>
                 <artifactId>logback-ext-spring</artifactId>
-                <version>0.1.4</version>
+                <version>0.1.5</version>
             </dependency>
 
             <!-- apache commons依赖 -->
