@@ -13,9 +13,9 @@
         }
 
         StackTraceElement[] stack = threadEntry.getValue();
-        out.print("\n线程：" + thread.getName() + "\n");
+        out.print("<p>线程：" + thread.getName() + "</p>");
         for (StackTraceElement stackTraceElement : stack) {
-            out.print("\t" + stackTraceElement + "\n");
+            out.print("<p>" + stackTraceElement + "</p>");
         }
     }
 %>
