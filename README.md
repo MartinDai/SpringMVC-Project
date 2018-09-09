@@ -5,18 +5,19 @@
 ## 框架
 
 - SpringMVC
-- logback
-- guava
-- fastjson
-- dubbo(RPC 微服务)
-- sharding-sphere(分库分表)
+- Logback
+- Guava
+- Fastjson
+- Dubbo(RPC 微服务)
+- Sharding-Sphere(分库分表)
 
 ## 功能
 
 - 文件上传下载
 - Excel导入导出
-- memcached服务(Memcached-Java-Client和xmemcached两种client实现)
-- redis服务（lettuce客户端）
+- Memcached服务(Memcached-Java-Client和xmemcached两种client实现)
+- Redis服务（Lettuce客户端）
+- 在线聊天Socket服务（基于Netty实现）
 
 ## 工具包
 
