@@ -5,6 +5,7 @@
 ## 框架
 
 - SpringMVC
+- MyBatis
 - Logback
 - Guava
 - Fastjson
