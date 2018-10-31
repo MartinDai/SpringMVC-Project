@@ -52,7 +52,7 @@ public class IndexController extends BaseController {
     public void down(HttpServletResponse response) throws IOException {
         HSSFWorkbook hssfWorkbook;
         try {
-            hssfWorkbook = ExcelUtil.createHSSFWorkbook(WebConstants.ROOT_PATH + "ddd" + WebConstants.TEMPLATE_PATH);
+            hssfWorkbook = ExcelUtil.createHSSFWorkbook(WebConstants.ROOT_PATH + WebConstants.TEMPLATE_PATH);
         } catch (Exception e) {
             throw new IllegalStateException("模板文件未找到");
         }
