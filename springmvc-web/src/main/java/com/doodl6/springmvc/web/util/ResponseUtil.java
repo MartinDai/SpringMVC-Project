@@ -2,13 +2,16 @@ package com.doodl6.springmvc.web.util;
 
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Writer;
+import java.net.URLEncoder;
 
 /**
  * 响应工具类
@@ -39,6 +42,23 @@ public final class ResponseUtil {
      */
     public static void responseXml(HttpServletResponse response, String text) {
         writeResponse(response, text, "text/xml");
+    }
+
+    /**
+     * 输出客户端excel
+     */
+    public static void responseExcel(HttpServletResponse response, Workbook workbook, String fileName) {
+        try (OutputStream os = response.getOutputStream()) {
+            // 设定字符集
+            response.setCharacterEncoding("UTF-8");
+            // 设定Content类型
+            response.setContentType("multipart/form-data");
+            // 设定Http头部
+            response.setHeader("Content-Disposition", "attachment;fileName=" + URLEncoder.encode(fileName, "UTF-8"));
+            workbook.write(os);
+        } catch (IOException e) {
+            LOGGER.error("输出excel异常", e);
+        }
     }
 
     public static void writeSupportCrossDomain(HttpServletRequest request, HttpServletResponse response) {

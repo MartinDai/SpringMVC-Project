@@ -3,16 +3,18 @@ package com.doodl6.springmvc.web.controller;
 import com.doodl6.springmvc.client.api.FirstDubboService;
 import com.doodl6.springmvc.client.request.GetDubboInfoRequest;
 import com.doodl6.springmvc.client.response.GetDubboInfoResponse;
-import com.doodl6.springmvc.common.util.ExcelUtil;
+import com.doodl6.springmvc.common.excel.*;
 import com.doodl6.springmvc.web.constant.WebConstants;
 import com.doodl6.springmvc.web.response.BaseResponse;
 import com.doodl6.springmvc.web.response.MapResponse;
 import com.doodl6.springmvc.web.response.ResponseCode;
-import com.doodl6.springmvc.web.util.DownloadUtil;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import com.doodl6.springmvc.web.util.ResponseUtil;
+import com.doodl6.springmvc.web.vo.ExcelVo;
+import com.google.common.collect.Lists;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +24,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * 首页控制类
@@ -29,6 +32,11 @@ import java.io.IOException;
 @RestController
 @RequestMapping("/index")
 public class IndexController extends BaseController {
+
+    /**
+     * Excel表头
+     */
+    public static final String[] EXCEL_HEAD = {"第一列:column1", "第一列:column2", "第三列:mergeColumn"};
 
     @Autowired(required = false)
     private FirstDubboService firstDubboService;
@@ -49,16 +57,42 @@ public class IndexController extends BaseController {
      * 下载接口
      */
     @RequestMapping("down")
-    public void down(HttpServletResponse response) throws IOException {
-        HSSFWorkbook hssfWorkbook;
+    public void down(HttpServletResponse response) {
         try {
-            hssfWorkbook = ExcelUtil.createHSSFWorkbook(WebConstants.ROOT_PATH + WebConstants.TEMPLATE_PATH);
-        } catch (Exception e) {
-            throw new IllegalStateException("模板文件未找到");
-        }
+            ExcelVersion excelVersion = ExcelVersion.XLS;
+            SheetModel sheetModel = new SheetModel();
+            sheetModel.setName("测试名称");
+            sheetModel.setTitle("测试标题");
+            List<Header> headers = ExcelHelper.createHeaders(EXCEL_HEAD);
+            sheetModel.setHeaders(headers);
 
-        String fileName = "模板.xls";
-        DownloadUtil.downExcel(response, hssfWorkbook, fileName);
+            ExcelVo excelVo = new ExcelVo();
+            List<String> cellList = Lists.newArrayList();
+            cellList.add("第一列第一行");
+            cellList.add("第一列第二行");
+            excelVo.setColumn1(cellList);
+
+            cellList = Lists.newArrayList();
+            cellList.add("第二列第一行");
+            cellList.add("第二列第二行");
+            excelVo.setColumn2(cellList);
+
+            excelVo.setMergeColumn("第三列合并行");
+
+            List<ExcelVo> voList = Lists.newArrayList();
+            voList.add(excelVo);
+            List<ExcelData> dataList = ExcelHelper.parseExcelDataList(voList);
+
+            sheetModel.setDataList(dataList);
+
+            List<SheetModel> sheets = Lists.newArrayList();
+            sheets.add(sheetModel);
+            ExcelModel excelModel = new ExcelModel(excelVersion, sheets);
+            Workbook workbook = excelModel.generateWorkbook();
+            ResponseUtil.responseExcel(response, workbook, "模板." + excelVersion.getSuffix());
+        } catch (Exception e) {
+            throw new IllegalStateException("下载出现异常");
+        }
     }
 
     /**
@@ -79,7 +113,7 @@ public class IndexController extends BaseController {
 
         //保存临时文件
         template.transferTo(tempFile);
-        Workbook workbook = ExcelUtil.convertToWorkbook(tempFile);
+        Workbook workbook = WorkbookFactory.create(tempFile);
         Sheet sheet = workbook.getSheetAt(0);
         int rows = sheet.getPhysicalNumberOfRows();
 

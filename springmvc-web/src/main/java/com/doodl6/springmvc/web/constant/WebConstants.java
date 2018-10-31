@@ -10,5 +10,4 @@ public final class WebConstants {
 
     public static String ROOT_PATH = null;
 
-    public static final String TEMPLATE_PATH = "template/template.xls";
 }
