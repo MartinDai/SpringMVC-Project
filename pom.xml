@@ -40,8 +40,9 @@
         <memcached.version>3.0.2</memcached.version>
         <xmemcached.version>2.4.3</xmemcached.version>
         <lettuce.version>5.0.4.RELEASE</lettuce.version>
-        <dubbo.version>2.5.3</dubbo.version>
-        <zk.version>0.1</zk.version>
+        <dubbo.version>2.6.4</dubbo.version>
+        <zk.version>3.4.12</zk.version>
+        <curator.version>4.0.1</curator.version>
         <mybatis.version>3.4.6</mybatis.version>
         <mybatis.spring.version>1.3.2</mybatis.spring.version>
         <druid.version>1.1.10</druid.version>
@@ -251,17 +252,24 @@
                 </exclusions>
             </dependency>
 
-            <!-- zookeeper -->
+            <!-- zookeeper client-->
             <dependency>
-                <groupId>com.github.sgroschupf</groupId>
-                <artifactId>zkclient</artifactId>
-                <version>${zk.version}</version>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-framework</artifactId>
+                <version>${curator.version}</version>
                 <exclusions>
                     <exclusion>
-                        <artifactId>log4j</artifactId>
-                        <groupId>log4j</groupId>
+                        <groupId>org.apache.zookeeper</groupId>
+                        <artifactId>zookeeper</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+
+            <!-- zookeeper -->
+            <dependency>
+                <groupId>org.apache.zookeeper</groupId>
+                <artifactId>zookeeper</artifactId>
+                <version>${zk.version}</version>
             </dependency>
 
             <!-- mysql -->
