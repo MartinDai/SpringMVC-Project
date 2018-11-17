@@ -4,7 +4,7 @@ import com.doodl6.springmvc.dao.api.UserLoginLogMapper;
 import com.doodl6.springmvc.dao.api.UserMapper;
 import com.doodl6.springmvc.dao.entity.User;
 import com.doodl6.springmvc.dao.entity.UserLoginLog;
-import com.doodl6.springmvc.web.response.MapResponse;
+import com.doodl6.springmvc.web.response.base.MapResponse;
 import com.google.common.base.Preconditions;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;

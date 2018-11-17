@@ -3,8 +3,8 @@ package com.doodl6.springmvc.web.controller;
 import com.doodl6.springmvc.service.cache.Model;
 import com.doodl6.springmvc.service.cache.memcached.base.MemCachedService;
 import com.doodl6.springmvc.service.cache.redis.RedisService;
-import com.doodl6.springmvc.web.response.BaseResponse;
-import com.doodl6.springmvc.web.response.MapResponse;
+import com.doodl6.springmvc.web.response.base.BaseResponse;
+import com.doodl6.springmvc.web.response.base.MapResponse;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

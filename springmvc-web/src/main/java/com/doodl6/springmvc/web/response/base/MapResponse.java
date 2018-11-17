@@ -1,4 +1,4 @@
-package com.doodl6.springmvc.web.response;
+package com.doodl6.springmvc.web.response.base;
 
 
 import com.google.common.collect.Maps;

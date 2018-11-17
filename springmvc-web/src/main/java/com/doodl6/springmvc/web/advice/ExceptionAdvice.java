@@ -1,8 +1,8 @@
 package com.doodl6.springmvc.web.advice;
 
 import com.doodl6.springmvc.common.util.LogUtil;
-import com.doodl6.springmvc.web.response.BaseResponse;
-import com.doodl6.springmvc.web.response.ResponseCode;
+import com.doodl6.springmvc.web.response.base.BaseResponse;
+import com.doodl6.springmvc.web.response.base.ResponseCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;

@@ -3,11 +3,14 @@ package com.doodl6.springmvc.web.controller;
 import com.doodl6.springmvc.client.api.FirstDubboService;
 import com.doodl6.springmvc.client.request.GetDubboInfoRequest;
 import com.doodl6.springmvc.client.response.GetDubboInfoResponse;
+import com.doodl6.springmvc.common.check.CheckUtil;
 import com.doodl6.springmvc.common.excel.*;
 import com.doodl6.springmvc.web.constant.WebConstants;
-import com.doodl6.springmvc.web.response.BaseResponse;
-import com.doodl6.springmvc.web.response.MapResponse;
-import com.doodl6.springmvc.web.response.ResponseCode;
+import com.doodl6.springmvc.web.request.CheckParameterRequest;
+import com.doodl6.springmvc.web.response.CheckParameterResult;
+import com.doodl6.springmvc.web.response.base.BaseResponse;
+import com.doodl6.springmvc.web.response.base.MapResponse;
+import com.doodl6.springmvc.web.response.base.ResponseCode;
 import com.doodl6.springmvc.web.util.ResponseUtil;
 import com.doodl6.springmvc.web.vo.ExcelVo;
 import com.google.common.collect.Lists;
@@ -143,6 +146,24 @@ public class IndexController extends BaseController {
 
 
         return mapResponse;
+    }
+
+    /**
+     * 参数校验
+     */
+    @RequestMapping("/parameterCheck")
+    public BaseResponse<CheckParameterResult> parameterCheck(CheckParameterRequest request) {
+
+        CheckUtil.check(request);
+
+        CheckParameterResult result = new CheckParameterResult();
+        result.setName(request.getName());
+        result.setAge(request.getAge());
+        result.setFavorites(request.getFavorites());
+        BaseResponse<CheckParameterResult> response = new BaseResponse<>();
+        response.setData(result);
+
+        return response;
     }
 
     /**
