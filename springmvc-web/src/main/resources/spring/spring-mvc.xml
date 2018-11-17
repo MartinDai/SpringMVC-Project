@@ -14,7 +14,7 @@
         <property name="maxUploadSize" value="2000000"/>
     </bean>
 
-    <mvc:annotation-driven>
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
         <mvc:message-converters register-defaults="false">
             <!-- StringHttpMessageConverter编码为UTF-8，防止乱码-->
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
@@ -48,5 +48,39 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+
+    <!-- View定义-->
+
+    <!--1、检查扩展名（如my.pdf）；2、检查Parameter（如my?format=pdf）；3、检查Accept Header-->
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+
+        <!-- 扩展名至mimeType的映射,即 /user.json => application/json -->
+        <property name="favorPathExtension" value="true"/>
+        <!-- 用于开启 /userinfo/123?format=json 的支持 -->
+        <property name="favorParameter" value="true"/>
+        <property name="parameterName" value="format"/>
+        <!-- 是否忽略Accept Header -->
+        <property name="ignoreAcceptHeader" value="false"/>
+
+        <!--扩展名到MIME的映射；favorPathExtension, favorParameter是true时起作用  -->
+        <property name="mediaTypes">
+            <value>
+                json=application/json
+                xml=application/xml
+                html=text/html
+            </value>
+        </property>
+        <!-- 默认的content type ,在没有扩展名和参数时即: "/user/1" 时的默认展现形式  -->
+        <property name="defaultContentType" value="application/json"/>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="contentNegotiationManager" ref="contentNegotiationManager"/>
+        <property name="defaultViews">
+            <list>
+                <bean class="com.alibaba.fastjson.support.spring.FastJsonJsonView"/>
+            </list>
+        </property>
+    </bean>
 
 </beans>
