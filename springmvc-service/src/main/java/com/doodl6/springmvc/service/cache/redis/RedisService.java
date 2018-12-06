@@ -1,35 +1,122 @@
 package com.doodl6.springmvc.service.cache.redis;
 
-import io.lettuce.core.RedisClient;
-import io.lettuce.core.RedisURI;
-import io.lettuce.core.api.StatefulRedisConnection;
-import io.lettuce.core.api.sync.RedisCommands;
-import io.lettuce.core.codec.RedisCodec;
-import org.springframework.stereotype.Component;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
 
-import java.time.Duration;
+import javax.annotation.Resource;
+import java.util.Collection;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
-@Component
+/**
+ * redis服务
+ * Created by daixiaoming on 2018-12-06.
+ */
+@Service
 public class RedisService {
 
-    private static RedisCommands<String, Object> REDIS_COMMANDS;
+    @Resource
+    private RedisTemplate<String, Object> redisTemplate;
 
-    static {
-        RedisClient CLIENT = RedisClient.create(RedisURI.create("127.0.0.1", 6379));
-        //设置超时时间为10秒
-        Duration duration = Duration.ofSeconds(10);
-        CLIENT.setDefaultTimeout(duration);
-        RedisCodec<String, Object> objectRedisCodec = new SerializedObjectCodec();
-
-        StatefulRedisConnection<String, Object> connect = CLIENT.connect(objectRedisCodec);
-        REDIS_COMMANDS = connect.sync();
-    }
-
+    /**
+     * 设置值，不设置过期时间
+     */
     public void set(String key, Object value) {
-        REDIS_COMMANDS.set(key, value);
+        redisTemplate.opsForValue().set(key, value);
     }
 
-    public <T> T get(String key, Class<T> type) {
-        return (T) REDIS_COMMANDS.get(key);
+    /**
+     * 设置值，设置过期时间
+     */
+    public void set(String key, Object value, long timeout, TimeUnit unit) {
+        redisTemplate.opsForValue().set(key, value, timeout, unit);
+    }
+
+    /**
+     * 如果不存在则设置值
+     */
+    public boolean setIfAbsent(String key, Object value, long timeout, TimeUnit unit) {
+        boolean result = redisTemplate.opsForValue().setIfAbsent(key, value);
+
+        //成功
+        if (result) {
+            redisTemplate.expire(key, timeout, unit);
+        }
+
+        return result;
+    }
+
+    /**
+     * 自增值，不设置过期时间
+     */
+    public long increment(String key, long delta) {
+        return redisTemplate.opsForValue().increment(key, delta);
+    }
+
+    /**
+     * 自增值，设置过期时间
+     */
+    public long increment(String key, long delta, long timeout, TimeUnit unit) {
+        long result = redisTemplate.opsForValue().increment(key, delta);
+
+        //首次自增
+        if (result == delta) {
+            redisTemplate.expire(key, timeout, unit);
+        }
+
+        return result;
+    }
+
+    /**
+     * 同时设置多个值，不设置过期时间
+     */
+    public void multiSet(Map<String, Object> map) {
+        redisTemplate.opsForValue().multiSet(map);
+    }
+
+    /**
+     * 同时设置多个值，设置过期时间
+     */
+    public void multiSet(Map<String, Object> map, long timeout, TimeUnit unit) {
+        redisTemplate.opsForValue().multiSet(map);
+        for (String key : map.keySet()) {
+            redisTemplate.expire(key, timeout, unit);
+        }
+    }
+
+    /**
+     * 获取指定key的值
+     */
+    public <T> T get(String key) {
+        return (T) redisTemplate.opsForValue().get(key);
+    }
+
+    /**
+     * 列表左边push
+     */
+    public void leftPush(String key, Object value) {
+        redisTemplate.opsForList().leftPush(key, value);
+    }
+
+    /**
+     * 列表左边批量push
+     */
+    public void leftPushAll(String key, Collection<Object> values) {
+        redisTemplate.opsForList().leftPushAll(key, values);
+    }
+
+    /**
+     * 获取列表长度
+     */
+    public long size(String key) {
+        return redisTemplate.opsForList().size(key);
+    }
+
+
+    /**
+     * 列表右边pop
+     */
+    public <T> T rightPop(String key) {
+        return (T) redisTemplate.opsForList().rightPop(key);
     }
 }

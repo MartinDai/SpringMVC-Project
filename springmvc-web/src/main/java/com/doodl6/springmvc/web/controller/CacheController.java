@@ -5,6 +5,7 @@ import com.doodl6.springmvc.service.cache.memcached.base.MemCachedService;
 import com.doodl6.springmvc.service.cache.redis.RedisService;
 import com.doodl6.springmvc.web.response.base.BaseResponse;
 import com.doodl6.springmvc.web.response.base.MapResponse;
+import com.google.common.collect.Maps;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -64,8 +65,68 @@ public class CacheController extends BaseController {
 
         Model model = new Model(key, value);
         redisService.set(key, model);
-        model = redisService.get(key, Model.class);
-        mapResponse.appendData("key", model);
+        model = redisService.get(key);
+        mapResponse.appendData(key, model);
+
+        return mapResponse;
+    }
+
+    /**
+     * 操作redis同时设置多个值
+     */
+    @RequestMapping("/multiSetToRedis")
+    public BaseResponse<Map<String, Object>> multiSetToRedis(String key1, String value1, String key2, String value2) {
+        MapResponse mapResponse = new MapResponse();
+
+        Map<String, Object> map = Maps.newHashMap();
+        map.put(key1, value1);
+        map.put(key2, value2);
+        redisService.multiSet(map);
+
+        String result1 = redisService.get(key1);
+        String result2 = redisService.get(key2);
+        mapResponse.appendData(key1, result1);
+        mapResponse.appendData(key2, result2);
+
+        return mapResponse;
+    }
+
+    /**
+     * 操作redis自增
+     */
+    @RequestMapping("/incrementToRedis")
+    public BaseResponse<Map<String, Object>> incrementToRedis(String key) {
+        MapResponse mapResponse = new MapResponse();
+
+        long result = redisService.increment(key, 1);
+        mapResponse.appendData("result", result);
+
+        return mapResponse;
+    }
+
+    /**
+     * 操作redis左push
+     */
+    @RequestMapping("/leftPushToRedis")
+    public BaseResponse<Map<String, Object>> leftPushToRedis(String key, String value) {
+        MapResponse mapResponse = new MapResponse();
+
+        redisService.leftPush(key, value);
+        long size = redisService.size(key);
+        mapResponse.appendData("size", size);
+
+        return mapResponse;
+    }
+
+    /**
+     * 操作redis右pop
+     */
+    @RequestMapping("/rightPopToRedis")
+    public BaseResponse<Map<String, Object>> rightPopToRedis(String key) {
+        MapResponse mapResponse = new MapResponse();
+
+        String result = redisService.rightPop(key);
+        mapResponse.appendData(key, result);
 
         return mapResponse;
     }
@@ -77,8 +138,8 @@ public class CacheController extends BaseController {
     public MapResponse getFromRedis(String key) {
         MapResponse mapResponse = new MapResponse();
 
-        Model value = redisService.get(key, Model.class);
-        mapResponse.appendData("key", value);
+        Model value = redisService.get(key);
+        mapResponse.appendData(key, value);
 
         return mapResponse;
     }
