@@ -48,6 +48,7 @@
         <mybatis.spring.version>1.3.2</mybatis.spring.version>
         <druid.version>1.1.10</druid.version>
         <sharding-jdbc.version>3.0.0.M1</sharding-jdbc.version>
+        <commons-pool2.version>2.6.0</commons-pool2.version>
     </properties>
 
     <dependencyManagement>
@@ -243,6 +244,13 @@
                 <groupId>io.lettuce</groupId>
                 <artifactId>lettuce-core</artifactId>
                 <version>${lettuce.version}</version>
+            </dependency>
+
+            <!--通用线程池 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>${commons-pool2.version}</version>
             </dependency>
 
             <!-- dubbo -->
