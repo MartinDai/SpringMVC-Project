@@ -91,7 +91,7 @@
                     <path>/</path>
                     <uriEncoding>UTF-8</uriEncoding>
                     <systemProperties>
-                        <JAVA_OPTS>-Xms128m -Xmx512m</JAVA_OPTS>
+                        <JAVA_OPTS>-Xms256m -Xmx1024m</JAVA_OPTS>
                     </systemProperties>
                 </configuration>
             </plugin>
