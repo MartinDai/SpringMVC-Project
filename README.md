@@ -18,7 +18,7 @@
 - Excel导入导出
 - Memcached服务(Memcached-Java-Client和xmemcached两种client实现)
 - Redis服务（Lettuce客户端）
-- 在线聊天Socket服务（基于Netty实现）
+- 在线聊天室DEMO（基于Netty的websocket实现和长轮训两种方案）
 
 ## 工具包
 
