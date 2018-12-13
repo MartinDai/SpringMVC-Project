@@ -2,10 +2,13 @@ package com.doodl6.springmvc.web.controller;
 
 import com.doodl6.springmvc.service.cache.Model;
 import com.doodl6.springmvc.service.cache.memcached.base.MemCachedService;
+import com.doodl6.springmvc.service.cache.redis.BloomFilterHelper;
 import com.doodl6.springmvc.service.cache.redis.RedisService;
 import com.doodl6.springmvc.web.response.base.BaseResponse;
 import com.doodl6.springmvc.web.response.base.MapResponse;
+import com.google.common.base.Charsets;
 import com.google.common.collect.Maps;
+import com.google.common.hash.Funnel;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,6 +30,9 @@ public class CacheController extends BaseController {
 
     @Resource
     private RedisService redisService;
+
+    private BloomFilterHelper<Model> modelBloomFilterHelper = new BloomFilterHelper<>((Funnel<Model>) (from, into) -> into.putString(from.getKey(), Charsets.UTF_8)
+            .putString(from.getValue(), Charsets.UTF_8), 100, 0.01);
 
     /**
      * 设置缓存数据到memcached
@@ -140,6 +146,33 @@ public class CacheController extends BaseController {
 
         Model value = redisService.get(key);
         mapResponse.appendData(key, value);
+
+        return mapResponse;
+    }
+
+    /**
+     * 把数据放入bloomFilter
+     */
+    @RequestMapping("/putIntoBloomFilter")
+    public MapResponse putIntoBloomFilter(String key, String value) {
+        MapResponse mapResponse = new MapResponse();
+
+        Model model = new Model(key, value);
+        redisService.addByBloomFilter(modelBloomFilterHelper, "modelFilter", model);
+
+        return mapResponse;
+    }
+
+    /**
+     * 检查数据是否在bloomFilter中
+     */
+    @RequestMapping("/checkIncludeBloomFilter")
+    public MapResponse checkIncludeBloomFilter(String key, String value) {
+        MapResponse mapResponse = new MapResponse();
+
+        Model model = new Model(key, value);
+        boolean include = redisService.includeByBloomFilter(modelBloomFilterHelper, "modelFilter", model);
+        mapResponse.appendData("include", include);
 
         return mapResponse;
     }
