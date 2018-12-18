@@ -71,7 +71,7 @@
     </dependencies>
 
     <build>
-        <finalName>SpringMVC-Project</finalName>
+        <finalName>${finalName}</finalName>
 
         <!-- 开启maven的资源过滤 -->
         <resources>
@@ -130,9 +130,11 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-            <!-- 告诉下面的 war 插件从哪里取配置文件复制到输出目录 -->
+            <!-- 属性配置 -->
             <properties>
+                <finalName>SpringMVC-Project-dev</finalName>
                 <configPath>src/main/resources/config/dev</configPath>
+                <packagingExcludes>**/*.html,**/*.css,**/*.less,**/*.js,**/*.png,**/*.jpg,**/*.gif</packagingExcludes>
             </properties>
             <build>
                 <!-- 告诉资源过滤该从哪个文件读取key-value值去进行资源替换(${}) -->
@@ -145,7 +147,9 @@
         <profile>
             <id>test</id>
             <properties>
+                <finalName>SpringMVC-Project-test</finalName>
                 <configPath>src/main/resources/config/test</configPath>
+                <packagingExcludes>**/*.html,**/*.css,**/*.less,**/*.js,**/*.png,**/*.jpg,**/*.gif</packagingExcludes>
             </properties>
             <build>
                 <filters>
@@ -157,7 +161,9 @@
         <profile>
             <id>production</id>
             <properties>
+                <finalName>SpringMVC-Project-production</finalName>
                 <configPath>src/main/resources/config/production</configPath>
+                <packagingExcludes/>
             </properties>
             <build>
                 <filters>
