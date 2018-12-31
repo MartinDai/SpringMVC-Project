@@ -1,6 +1,6 @@
 package com.doodl6.springmvc.web.controller;
 
-import com.doodl6.springmvc.service.cache.Model;
+import com.doodl6.springmvc.service.cache.vo.Model;
 import com.doodl6.springmvc.service.cache.memcached.base.MemCachedService;
 import com.doodl6.springmvc.service.cache.redis.BloomFilterHelper;
 import com.doodl6.springmvc.service.cache.redis.RedisService;

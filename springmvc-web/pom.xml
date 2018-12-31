@@ -61,6 +61,12 @@
         <dependency>
             <groupId>org.apache.zookeeper</groupId>
             <artifactId>zookeeper</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>log4j</artifactId>
+                    <groupId>log4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -108,6 +114,8 @@
                             <targetPath>WEB-INF/classes</targetPath>
                         </resource>
                     </webResources>
+                    <!-- 打包需要忽略的文件配置-->
+                    <packagingExcludes>${packagingExcludes}</packagingExcludes>
                 </configuration>
             </plugin>
 
@@ -133,13 +141,13 @@
             <!-- 属性配置 -->
             <properties>
                 <finalName>SpringMVC-Project-dev</finalName>
-                <configPath>src/main/resources/config/dev</configPath>
-                <packagingExcludes>**/*.html,**/*.css,**/*.less,**/*.js,**/*.png,**/*.jpg,**/*.gif</packagingExcludes>
+                <configPath>src/main/config/dev</configPath>
+                <packagingExcludes>logs/,**/*.html,**/*.css,**/*.less,**/*.js,**/*.png,**/*.jpg,**/*.gif</packagingExcludes>
             </properties>
             <build>
                 <!-- 告诉资源过滤该从哪个文件读取key-value值去进行资源替换(${}) -->
                 <filters>
-                    <filter>src/main/resources/properties/dev.properties</filter>
+                    <filter>src/main/properties/dev.properties</filter>
                 </filters>
             </build>
         </profile>
@@ -148,12 +156,12 @@
             <id>test</id>
             <properties>
                 <finalName>SpringMVC-Project-test</finalName>
-                <configPath>src/main/resources/config/test</configPath>
-                <packagingExcludes>**/*.html,**/*.css,**/*.less,**/*.js,**/*.png,**/*.jpg,**/*.gif</packagingExcludes>
+                <configPath>src/main/config/test</configPath>
+                <packagingExcludes>logs/,**/*.html,**/*.css,**/*.less,**/*.js,**/*.png,**/*.jpg,**/*.gif</packagingExcludes>
             </properties>
             <build>
                 <filters>
-                    <filter>src/main/resources/properties/test.properties</filter>
+                    <filter>src/main/properties/test.properties</filter>
                 </filters>
             </build>
         </profile>
@@ -162,12 +170,12 @@
             <id>production</id>
             <properties>
                 <finalName>SpringMVC-Project-production</finalName>
-                <configPath>src/main/resources/config/production</configPath>
+                <configPath>src/main/config/production</configPath>
                 <packagingExcludes/>
             </properties>
             <build>
                 <filters>
-                    <filter>src/main/resources/properties/production.properties</filter>
+                    <filter>src/main/properties/production.properties</filter>
                 </filters>
             </build>
         </profile>

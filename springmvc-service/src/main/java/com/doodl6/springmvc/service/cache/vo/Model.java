@@ -1,4 +1,4 @@
-package com.doodl6.springmvc.service.cache;
+package com.doodl6.springmvc.service.cache.vo;
 
 import java.io.Serializable;
 

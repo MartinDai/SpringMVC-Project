@@ -19,6 +19,7 @@
 - Memcached服务(Memcached-Java-Client和xmemcached两种client实现)
 - Redis服务（Lettuce客户端，含常用操作和布隆过滤器整合）
 - 在线聊天室DEMO（基于Netty的websocket实现和长轮训两种方案）
+- ElasticSearch调用实现
 
 ## 工具包
 

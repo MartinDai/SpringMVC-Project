@@ -23,6 +23,13 @@ public class BaseResponse<T> {
         return message;
     }
 
+    public BaseResponse() {
+    }
+
+    public BaseResponse(T data) {
+        this.data = data;
+    }
+
     public BaseResponse setMessage(String message) {
         this.message = message;
         return this;

@@ -107,18 +107,18 @@
 
     <profiles>
         <profile>
-            <id>dev</id>
+            <id>local</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <!-- 告诉下面的 war 插件从哪里取配置文件复制到输出目录 -->
             <properties>
-                <configPath>src/main/resources/config/dev</configPath>
+                <configPath>src/main/resources</configPath>
             </properties>
             <build>
                 <!-- 告诉资源过滤该从哪个文件读取key-value值去进行资源替换(${}) -->
                 <filters>
-                    <filter>src/main/resources/properties/dev.properties</filter>
+                    <filter>src/main/properties/dev.properties</filter>
                 </filters>
             </build>
         </profile>
@@ -126,11 +126,11 @@
         <profile>
             <id>test</id>
             <properties>
-                <configPath>src/main/resources/config/test</configPath>
+                <configPath>src/main/config/test</configPath>
             </properties>
             <build>
                 <filters>
-                    <filter>src/main/resources/properties/test.properties</filter>
+                    <filter>src/main/properties/test.properties</filter>
                 </filters>
             </build>
         </profile>
@@ -138,11 +138,11 @@
         <profile>
             <id>production</id>
             <properties>
-                <configPath>src/main/resources/config/production</configPath>
+                <configPath>src/main/config/production</configPath>
             </properties>
             <build>
                 <filters>
-                    <filter>src/main/resources/properties/production.properties</filter>
+                    <filter>src/main/properties/production.properties</filter>
                 </filters>
             </build>
         </profile>

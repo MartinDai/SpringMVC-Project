@@ -24,7 +24,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @RestController
 @RequestMapping("/chat")
-public class ChatController {
+public class ChatController extends BaseController{
 
     /**
      * 用户ID生成器
