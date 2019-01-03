@@ -15,7 +15,7 @@ public class Header {
     public Header() {
     }
 
-    public Header(String field, String name){
+    public Header(String field, String name) {
         this.field = field;
         this.name = name;
     }

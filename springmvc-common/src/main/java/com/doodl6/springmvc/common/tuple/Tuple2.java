@@ -1,7 +1,5 @@
 package com.doodl6.springmvc.common.tuple;
 
-import java.io.Serializable;
-
 /**
  * 元组
  */

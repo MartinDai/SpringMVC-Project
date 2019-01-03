@@ -5,7 +5,6 @@ import com.doodl6.springmvc.service.elasticsearch.vo.Article;
 import com.doodl6.springmvc.web.response.base.BaseResponse;
 import com.google.common.base.Preconditions;
 import org.apache.commons.lang3.StringUtils;
-import org.elasticsearch.search.profile.query.QueryProfileShardResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

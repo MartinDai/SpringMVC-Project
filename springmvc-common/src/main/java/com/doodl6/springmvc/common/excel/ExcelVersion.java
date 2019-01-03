@@ -15,4 +15,5 @@ public enum ExcelVersion {
 
     public String getSuffix() {
         return suffix;
-    }}
+    }
+}
