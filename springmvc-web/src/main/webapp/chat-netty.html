@@ -10,15 +10,15 @@
 <div class="container" style="margin-top: 20px;">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h4 class="panel-title">在线聊天室（基于websocket）</h4>
+            <h4 class="panel-title">在线聊天室（基于Netty）</h4>
         </div>
 
         <div class="panel-body">
             <div class="form-group">
                 <div class="form-inline">
                     <input id="user-name" type="text" class="form-control" placeholder="请输入用户名"/>
-                    <button id="connect-server" type="button" class="btn btn-primary">连接服务器</button>
-                    <button id="disconnect-server" type="button" class="btn btn-danger" style="display:none">断开服务器
+                    <button id="connect-server" type="button" class="btn btn-primary">进入聊天室</button>
+                    <button id="disconnect-server" type="button" class="btn btn-danger" style="display:none">离开聊天室
                     </button>
                 </div>
             </div>
@@ -132,7 +132,7 @@
     }
 
     function showDisconnectBtn() {
-        $userNameInput.attr("readonly","readonly");
+        $userNameInput.attr("readonly", "readonly");
         $btnConnectServer.hide();
         $btnDisconnectServer.show();
     }
@@ -152,7 +152,7 @@
                 "content": message
             }));
         } else {
-            alert("请先连接服务器！");
+            alert("请先进入聊天室！");
         }
     }
 </script>

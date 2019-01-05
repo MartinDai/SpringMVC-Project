@@ -74,6 +74,15 @@
             <artifactId>netty-all</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>javax.websocket</groupId>
+            <artifactId>javax.websocket-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -142,7 +151,8 @@
             <properties>
                 <finalName>SpringMVC-Project-dev</finalName>
                 <configPath>src/main/config/dev</configPath>
-                <packagingExcludes>logs/,**/*.html,**/*.css,**/*.less,**/*.js,**/*.png,**/*.jpg,**/*.gif</packagingExcludes>
+                <packagingExcludes>logs/,**/*.html,**/*.css,**/*.less,**/*.js,**/*.png,**/*.jpg,**/*.gif
+                </packagingExcludes>
             </properties>
             <build>
                 <!-- 告诉资源过滤该从哪个文件读取key-value值去进行资源替换(${}) -->
@@ -157,7 +167,8 @@
             <properties>
                 <finalName>SpringMVC-Project-test</finalName>
                 <configPath>src/main/config/test</configPath>
-                <packagingExcludes>logs/,**/*.html,**/*.css,**/*.less,**/*.js,**/*.png,**/*.jpg,**/*.gif</packagingExcludes>
+                <packagingExcludes>logs/,**/*.html,**/*.css,**/*.less,**/*.js,**/*.png,**/*.jpg,**/*.gif
+                </packagingExcludes>
             </properties>
             <build>
                 <filters>
