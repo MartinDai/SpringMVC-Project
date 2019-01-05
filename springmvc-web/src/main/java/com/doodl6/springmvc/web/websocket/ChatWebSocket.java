@@ -56,7 +56,7 @@ public class ChatWebSocket {
 
         //发送消息到所有客户端
         for (Map.Entry<Session, String> userSessionEntry : userSessionMap.entrySet()) {
-            sendMessage(userSessionEntry.getKey(), message);
+            sendMessage(userSessionEntry.getKey(), userName + "：" + message);
         }
     }
 
