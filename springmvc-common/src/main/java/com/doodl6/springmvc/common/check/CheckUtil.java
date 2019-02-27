@@ -82,11 +82,9 @@ public class CheckUtil {
         Object value = getFieldValue(object, field);
         Preconditions.checkArgument(value != null, "字段【" + fieldName + "】不允许为空");
 
-        int minLength = fieldNotEmpty.minLength();
-        int maxLength = fieldNotEmpty.maxLength();
         int length;
         if (object instanceof String) {
-            length = ((String) value).length();
+            length = ((String) value).trim().length();
         } else if (object instanceof List<?>) {
             length = ((List<?>) value).size();
         } else if (object.getClass().isArray()) {
@@ -95,11 +93,13 @@ public class CheckUtil {
             return;
         }
 
+        int minLength = fieldNotEmpty.minLength();
         Preconditions.checkArgument(length > 0, "字段【" + fieldName + "】不允许为空");
         if (minLength > 0) {
             Preconditions.checkArgument(length >= minLength, "字段【" + fieldName + "】长度不能少于" + minLength);
         }
 
+        int maxLength = fieldNotEmpty.maxLength();
         if (maxLength > 0) {
             Preconditions.checkArgument(length <= maxLength, "字段【" + fieldName + "】长度不能大于" + maxLength);
         }
