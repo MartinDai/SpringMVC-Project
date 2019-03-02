@@ -3,14 +3,12 @@ package com.doodl6.springmvc.web.server;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Maps;
-import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 
 import java.util.Map;
 
-@Sharable
 public class ChatServerHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
 
     private static Map<ChannelHandlerContext, String> userChannelMap = Maps.newHashMap();

@@ -30,7 +30,7 @@ public class ChatServer {
             System.out.println("聊天socket服务启动完成");
             f.channel().closeFuture().sync();
         } finally {
-            group.shutdownGracefully();
+            group.shutdownGracefully().syncUninterruptibly();
         }
 
     }
