@@ -1,7 +1,10 @@
 package com.doodl6.springmvc.service.cache.redis;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
+import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -18,6 +21,8 @@ public class RedisService {
 
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
+
+    private static final Long SUCCESS = 1L;
 
     /**
      * 设置值，不设置过期时间
@@ -45,6 +50,30 @@ public class RedisService {
         }
 
         return result;
+    }
+
+    /**
+     * 获取锁
+     */
+    public boolean getLock(String key, String value, int expireTime) {
+        String script = "if redis.call('setNX',KEYS[1],ARGV[1]) == 1 then if redis.call('get',KEYS[1])==ARGV[1] then return redis.call('expire',KEYS[1],ARGV[2]) else return 0 end end";
+
+        RedisScript<Long> redisScript = new DefaultRedisScript<>(script, Long.class);
+        Long result = redisTemplate.execute(redisScript, Lists.newArrayList(key), value, expireTime);
+
+        return SUCCESS.equals(result);
+    }
+
+    /**
+     * 解锁
+     */
+    public boolean releaseLock(String key, String value) {
+        String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
+
+        RedisScript<Long> redisScript = new DefaultRedisScript<>(script, Long.class);
+        Long result = redisTemplate.execute(redisScript, Lists.newArrayList(key), value);
+
+        return SUCCESS.equals(result);
     }
 
     /**

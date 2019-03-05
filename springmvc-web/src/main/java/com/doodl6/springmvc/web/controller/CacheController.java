@@ -1,9 +1,9 @@
 package com.doodl6.springmvc.web.controller;
 
-import com.doodl6.springmvc.service.cache.vo.Model;
 import com.doodl6.springmvc.service.cache.memcached.base.MemCachedService;
 import com.doodl6.springmvc.service.cache.redis.BloomFilterHelper;
 import com.doodl6.springmvc.service.cache.redis.RedisService;
+import com.doodl6.springmvc.service.cache.vo.Model;
 import com.doodl6.springmvc.web.response.base.BaseResponse;
 import com.doodl6.springmvc.web.response.base.MapResponse;
 import com.google.common.base.Charsets;
@@ -173,6 +173,32 @@ public class CacheController extends BaseController {
         Model model = new Model(key, value);
         boolean include = redisService.includeByBloomFilter(modelBloomFilterHelper, "modelFilter", model);
         mapResponse.appendData("include", include);
+
+        return mapResponse;
+    }
+
+    /**
+     * 获取redis锁
+     */
+    @RequestMapping("/getRedisLock")
+    public MapResponse getRedisLock(String key, String value, Integer expireTime) {
+        MapResponse mapResponse = new MapResponse();
+
+        boolean success = redisService.getLock(key, value, expireTime);
+        mapResponse.appendData("success", success);
+
+        return mapResponse;
+    }
+
+    /**
+     * 释放redis锁
+     */
+    @RequestMapping("/releaseRedisLock")
+    public MapResponse releaseRedisLock(String key, String value) {
+        MapResponse mapResponse = new MapResponse();
+
+        boolean success = redisService.releaseLock(key, value);
+        mapResponse.appendData("success", success);
 
         return mapResponse;
     }

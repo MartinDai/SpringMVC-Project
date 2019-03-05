@@ -15,7 +15,7 @@ import java.net.InetSocketAddress;
 public class ChatServer {
 
     public static void start() throws InterruptedException {
-        EventLoopGroup group = new NioEventLoopGroup();
+        EventLoopGroup group = new NioEventLoopGroup(1);
         try {
             ServerBootstrap b = new ServerBootstrap();
             b.group(group)
