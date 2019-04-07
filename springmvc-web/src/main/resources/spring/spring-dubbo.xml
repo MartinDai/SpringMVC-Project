@@ -11,6 +11,6 @@
 
     <dubbo:protocol name="dubbo" port="20880"/>
 
-    <dubbo:reference id="firstDubboService" check="${dubbo.check}" interface="com.doodl6.springmvc.client.api.FirstDubboService" version="${dubbo.first.version}"/>
+    <dubbo:reference id="firstDubboService" check="${dubbo.check}" interface="com.doodl6.springmvc.client.api.FirstDubboService" version="${dubbo.first.version}" timeout="2000"/>
 
 </beans>
