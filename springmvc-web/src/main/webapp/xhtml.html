@@ -37,12 +37,6 @@
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
 <script>
-    var webSocket;
-    var userName;
-
-    var $userNameInput = $('#user-name');
-    var $btnConnectServer = $('#connect-server');
-    var $btnDisconnectServer = $('#disconnect-server');
     var $chatScreen = $('#chat-screen');
     var $messageText = $('#message-text');
     var $sendMessage = $('#send-message');
@@ -71,18 +65,6 @@
     $cleanScreen.click(function () {
         $chatScreen.html("");
     });
-
-    function showConnectBtn() {
-        $userNameInput.removeAttr("readonly");
-        $btnConnectServer.show();
-        $btnDisconnectServer.hide();
-    }
-
-    function showDisconnectBtn() {
-        $userNameInput.attr("readonly", "readonly");
-        $btnConnectServer.hide();
-        $btnDisconnectServer.show();
-    }
 
     function appendScreenContent(message) {
         $chatScreen.append($("<p>").text(message));

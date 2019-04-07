@@ -14,8 +14,9 @@ import org.springframework.web.context.request.async.DeferredResult;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -36,7 +37,7 @@ public class ChatController extends BaseController {
     /**
      * 为每个用户维护一份聊天记录队列
      */
-    private static final Map<Integer, Queue<MessageVo>> MESSAGE_QUEUE_MAP = Maps.newHashMap();
+    private static final Map<Integer, LinkedBlockingDeque<MessageVo>> MESSAGE_QUEUE_MAP = Maps.newHashMap();
 
     /**
      * 拉取数据，如果没有数据，会hold一段时间
@@ -67,7 +68,7 @@ public class ChatController extends BaseController {
 
         int userId = USER_ID_GENERATOR.incrementAndGet();
 
-        MESSAGE_QUEUE_MAP.put(userId, Queues.newConcurrentLinkedQueue());
+        MESSAGE_QUEUE_MAP.put(userId, Queues.newLinkedBlockingDeque());
 
         USER_MAP.put(userId, userName + "[" + userId + "]");
 
@@ -122,28 +123,26 @@ public class ChatController extends BaseController {
 
         @Override
         public void run() {
-            long startTime = System.currentTimeMillis();
-            Queue<MessageVo> messageQueue = MESSAGE_QUEUE_MAP.get(userId);
+            LinkedBlockingDeque<MessageVo> messageQueue = MESSAGE_QUEUE_MAP.get(userId);
             BaseResponse<List<MessageVo>> response = new BaseResponse<>();
             List<MessageVo> list = Lists.newArrayList();
-            do {
-                if (messageQueue.isEmpty()) {
-                    try {
-                        Thread.sleep(10);
-                    } catch (InterruptedException ignored) {
-                    }
-                } else {
+
+            MessageVo vo;
+            try {
+                if ((vo = messageQueue.poll(timeout, TimeUnit.MILLISECONDS)) != null) {
+                    list.add(vo);
                     //一次最多取10条信息
-                    for (int i = 0; i < 10; i++) {
-                        MessageVo vo = messageQueue.poll();
+                    for (int i = 0; i < 9; i++) {
+                        vo = messageQueue.poll();
                         if (vo == null) {
                             break;
                         }
                         list.add(vo);
                     }
-                    break;
                 }
-            } while (System.currentTimeMillis() - startTime < timeout);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             response.setData(list);
             deferredResult.setResult(response);
