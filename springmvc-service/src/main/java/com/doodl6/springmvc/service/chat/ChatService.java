@@ -1,4 +1,4 @@
-package com.doodl6.springmvc.web.service;
+package com.doodl6.springmvc.service.chat;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +15,8 @@ public class ChatService {
     /**
      * 保存聊天记录
      */
-    public void saveChatRecord(String userName, String content) {
-        logger.info("用户聊天内容 | {} | {} ", userName, content);
+    public void saveChatRecord(String userName, String content, long created) {
+        logger.info("保存用户聊天内容 | {} | {} | {}", userName, content, created);
 
         //真实项目可以在这里把聊天内容入库
     }

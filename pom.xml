@@ -51,6 +51,7 @@
         <commons-pool2.version>2.6.0</commons-pool2.version>
         <jackson.version>2.9.7</jackson.version>
         <es.version>6.5.2</es.version>
+        <rocketmq.version>4.3.0</rocketmq.version>
     </properties>
 
     <dependencyManagement>
@@ -398,6 +399,11 @@
                 <version>${jackson.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-client</artifactId>
+                <version>${rocketmq.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>

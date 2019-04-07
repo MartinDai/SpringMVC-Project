@@ -6,11 +6,12 @@
 
 - SpringMVC
 - MyBatis
-- Logback
+- Logback(日志框架)
 - Guava
 - Fastjson
 - Dubbo(RPC 微服务)
 - Sharding-Sphere(分库分表)
+- RocketMQ(分布式消息)
 
 ## 功能
 
