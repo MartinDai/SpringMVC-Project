@@ -52,6 +52,7 @@
         <jackson.version>2.9.8</jackson.version>
         <es.version>6.5.2</es.version>
         <rocketmq.version>4.3.0</rocketmq.version>
+        <aspectj.version>1.9.2</aspectj.version>
     </properties>
 
     <dependencyManagement>
@@ -403,6 +404,12 @@
                 <groupId>org.apache.rocketmq</groupId>
                 <artifactId>rocketmq-client</artifactId>
                 <version>${rocketmq.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspectj.version}</version>
             </dependency>
 
         </dependencies>

@@ -18,7 +18,7 @@
         </filter>
     </appender>
 
-    <appender name="DebugAppender" class="ch.qos.logback.core.FileAppender">
+    <appender name="DebugAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_PATH}/debug/debug.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LOG_PATH}/debug/debug.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
@@ -35,7 +35,7 @@
         </filter>
     </appender>
 
-    <appender name="InfoAppender" class="ch.qos.logback.core.FileAppender">
+    <appender name="InfoAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_PATH}/info/info.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LOG_PATH}/info/info.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
@@ -52,7 +52,7 @@
         </filter>
     </appender>
 
-    <appender name="WarnAppender" class="ch.qos.logback.core.FileAppender">
+    <appender name="WarnAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_PATH}/warn/warn.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LOG_PATH}/warn/warn.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
@@ -69,7 +69,7 @@
         </filter>
     </appender>
 
-    <appender name="ErrorAppender" class="ch.qos.logback.core.FileAppender">
+    <appender name="ErrorAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_PATH}/error/error.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LOG_PATH}/error/error.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
