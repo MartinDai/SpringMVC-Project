@@ -21,6 +21,7 @@
 - Redis服务（Lettuce客户端，含常规操作、分布式锁和布隆过滤器整合）
 - 在线聊天室DEMO（包括基于Netty、WebSocket和长轮训三种实现方案）
 - ElasticSearch调用实现
+- AOP实现记录API耗时日志
 
 ## 工具包
 
