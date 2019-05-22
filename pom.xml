@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
+        <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -20,39 +20,41 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <jdk.version>1.8</jdk.version>
-        <maven.test.skip>true</maven.test.skip>
-        <spring.version>5.1.3.RELEASE</spring.version>
         <additionalparam>-Xdoclint:none</additionalparam>
-        <junit.version>4.12</junit.version>
-        <servlet.version>3.1.0</servlet.version>
-        <slf4j.version>1.7.21</slf4j.version>
-        <commons.lang3.version>3.7</commons.lang3.version>
+        <maven.test.skip>true</maven.test.skip>
+
+        <!-- 第三方jar包版本 -->
+        <aspectj.version>1.9.2</aspectj.version>
         <commons.collections4.version>4.1</commons.collections4.version>
-        <commons.io.version>2.6</commons.io.version>
-        <commons.math3.version>3.6.1</commons.math3.version>
-        <commons.fileupload.version>1.3.3</commons.fileupload.version>
         <commons.email.version>1.5</commons.email.version>
-        <guava.version>23.0</guava.version>
-        <fastjson.version>1.2.47</fastjson.version>
-        <poi.version>3.17</poi.version>
-        <httpclient.version>4.5.5</httpclient.version>
-        <mysql.version>8.0.11</mysql.version>
-        <memcached.version>3.0.2</memcached.version>
-        <xmemcached.version>2.4.3</xmemcached.version>
-        <lettuce.version>5.0.4.RELEASE</lettuce.version>
-        <spring.redis.version>2.0.12.RELEASE</spring.redis.version>
-        <dubbo.version>2.6.4</dubbo.version>
-        <zk.version>3.4.12</zk.version>
+        <commons.fileupload.version>1.3.3</commons.fileupload.version>
+        <commons.io.version>2.6</commons.io.version>
+        <commons.lang3.version>3.7</commons.lang3.version>
+        <commons.math3.version>3.6.1</commons.math3.version>
+        <commons-pool2.version>2.6.0</commons-pool2.version>
         <curator.version>4.0.1</curator.version>
+        <druid.version>1.1.10</druid.version>
+        <dubbo.version>2.6.4</dubbo.version>
+        <es.version>6.5.2</es.version>
+        <fastjson.version>1.2.47</fastjson.version>
+        <guava.version>23.0</guava.version>
+        <httpclient.version>4.5.5</httpclient.version>
+        <jackson.version>2.9.8</jackson.version>
+        <junit.version>4.12</junit.version>
+        <lettuce.version>5.0.4.RELEASE</lettuce.version>
+        <memcached.version>3.0.2</memcached.version>
         <mybatis.version>3.4.6</mybatis.version>
         <mybatis.spring.version>1.3.2</mybatis.spring.version>
-        <druid.version>1.1.10</druid.version>
-        <sharding-jdbc.version>3.0.0.M1</sharding-jdbc.version>
-        <commons-pool2.version>2.6.0</commons-pool2.version>
-        <jackson.version>2.9.8</jackson.version>
-        <es.version>6.5.2</es.version>
+        <mysql.version>8.0.11</mysql.version>
+        <poi.version>3.17</poi.version>
         <rocketmq.version>4.3.0</rocketmq.version>
-        <aspectj.version>1.9.2</aspectj.version>
+        <servlet.version>3.1.0</servlet.version>
+        <sharding-jdbc.version>3.0.0.M1</sharding-jdbc.version>
+        <slf4j.version>1.7.21</slf4j.version>
+        <spring.version>5.1.3.RELEASE</spring.version>
+        <spring.redis.version>2.0.12.RELEASE</spring.redis.version>
+        <xmemcached.version>2.4.3</xmemcached.version>
+        <zk.version>3.4.12</zk.version>
     </properties>
 
     <dependencyManagement>
@@ -298,6 +300,13 @@
                 </exclusions>
             </dependency>
 
+            <!-- zookeeper -->
+            <dependency>
+                <groupId>org.apache.zookeeper</groupId>
+                <artifactId>zookeeper</artifactId>
+                <version>${zk.version}</version>
+            </dependency>
+
             <!-- zookeeper client-->
             <dependency>
                 <groupId>org.apache.curator</groupId>
@@ -310,12 +319,10 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-
-            <!-- zookeeper -->
             <dependency>
-                <groupId>org.apache.zookeeper</groupId>
-                <artifactId>zookeeper</artifactId>
-                <version>${zk.version}</version>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-recipes</artifactId>
+                <version>${curator.version}</version>
             </dependency>
 
             <!-- mysql -->
