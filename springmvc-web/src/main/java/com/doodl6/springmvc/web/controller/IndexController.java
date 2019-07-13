@@ -5,6 +5,7 @@ import com.doodl6.springmvc.client.request.GetDubboInfoRequest;
 import com.doodl6.springmvc.client.response.GetDubboInfoResponse;
 import com.doodl6.springmvc.common.check.CheckUtil;
 import com.doodl6.springmvc.common.excel.*;
+import com.doodl6.springmvc.web.aspect.TraceIdHolder;
 import com.doodl6.springmvc.web.constant.WebConstants;
 import com.doodl6.springmvc.web.request.CheckParameterRequest;
 import com.doodl6.springmvc.web.response.CheckParameterResult;
@@ -135,6 +136,7 @@ public class IndexController extends BaseController {
         MapResponse mapResponse = new MapResponse();
 
         GetDubboInfoRequest getDubboInfoRequest = new GetDubboInfoRequest();
+        getDubboInfoRequest.setTraceId(TraceIdHolder.getTraceId());
         getDubboInfoRequest.setId(id);
         GetDubboInfoResponse getDubboInfoResponse = firstDubboService.getDubboInfo(getDubboInfoRequest);
         if (getDubboInfoResponse.isSuccess()) {
@@ -143,7 +145,6 @@ public class IndexController extends BaseController {
             mapResponse.setResult(ResponseCode.BIZ_ERROR);
             mapResponse.setMessage(getDubboInfoResponse.getErrorMsg());
         }
-
 
         return mapResponse;
     }
