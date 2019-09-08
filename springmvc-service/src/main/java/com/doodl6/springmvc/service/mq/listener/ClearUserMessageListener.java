@@ -1,8 +1,8 @@
-package com.doodl6.springmvc.service.mq;
+package com.doodl6.springmvc.service.mq.listener;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.doodl6.springmvc.service.chat.ChatService;
+import com.doodl6.springmvc.dao.api.UserLoginLogMapper;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
@@ -15,23 +15,27 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * 消费消息监听
+ * 清除用户消息监听
  */
 @Component
-public class ConsumeMessageListener implements MessageListenerConcurrently {
+public class ClearUserMessageListener implements MessageListenerConcurrently {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Resource
-    private ChatService chatService;
+    private UserLoginLogMapper userLoginLogMapper;
 
     @Override
     public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> messageList, ConsumeConcurrentlyContext context) {
         for (MessageExt messageExt : messageList) {
             String message = new String(messageExt.getBody());
-            logger.info("收到消息 | {}", message);
+            logger.info("收到清除用户消息 | {}", message);
             JSONObject messageJSON = JSON.parseObject(message);
-            chatService.saveChatRecord(messageJSON.getString("userName"), messageJSON.getString("content"), messageJSON.getLongValue("timestamp"));
+            Long userId = messageJSON.getLong("userId");
+            if (userId != null) {
+                userLoginLogMapper.deleteAllByUserId(userId);
+                logger.info("删除用户登录记录完成 | {}", userId);
+            }
         }
         return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
     }

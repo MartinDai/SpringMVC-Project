@@ -4,11 +4,14 @@ import com.doodl6.springmvc.dao.api.UserLoginLogMapper;
 import com.doodl6.springmvc.dao.api.UserMapper;
 import com.doodl6.springmvc.dao.entity.User;
 import com.doodl6.springmvc.dao.entity.UserLoginLog;
+import com.doodl6.springmvc.service.mq.RocketMQService;
+import com.doodl6.springmvc.web.response.base.BaseResponse;
 import com.doodl6.springmvc.web.response.base.MapResponse;
 import com.google.common.base.Preconditions;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -24,6 +27,9 @@ public class UserController extends BaseController {
 
     @Resource
     private UserLoginLogMapper userLoginLogMapper;
+
+    @Resource
+    private RocketMQService rocketMQService;
 
     /**
      * 新增用户
@@ -49,8 +55,8 @@ public class UserController extends BaseController {
         Preconditions.checkArgument(userId != null, "用户ID不能为空");
 
         User user = userMapper.getById(userId);
-
         Preconditions.checkArgument(user != null, "用户不存在");
+
         UserLoginLog userLoginLog = new UserLoginLog();
         userLoginLog.setUserId(userId);
         userLoginLog.setLoginTime(new Date());
@@ -61,6 +67,21 @@ public class UserController extends BaseController {
         response.appendData("lastLogin", userLoginLogList);
 
         return response;
+    }
+
+    /**
+     * 删除用户
+     */
+    @RequestMapping(value = "/deleteUser", method = RequestMethod.DELETE)
+    public BaseResponse<Void> deleteUser(Long userId) {
+        Preconditions.checkArgument(userId != null, "用户ID不能为空");
+
+        User user = userMapper.getById(userId);
+        Preconditions.checkArgument(user != null, "用户不存在");
+
+        rocketMQService.sendClearUserMsg(userId);
+
+        return BaseResponse.success(null);
     }
 
 }
