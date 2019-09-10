@@ -33,7 +33,8 @@ public class ClearUserTransactionListener implements TransactionListener {
         userMapper.deleteById(userId);
         logger.info("删除用户信息完成 | {}", userId);
 
-        return LocalTransactionState.UNKNOW;
+        //如果返回LocalTransactionState.UNKNOWN，则会定时轮训下面的检查本地事务状态方法
+        return LocalTransactionState.COMMIT_MESSAGE;
     }
 
     @Override
