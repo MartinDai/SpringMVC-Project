@@ -50,7 +50,7 @@
         <poi.version>3.17</poi.version>
         <rocketmq.version>4.3.0</rocketmq.version>
         <servlet.version>3.1.0</servlet.version>
-        <sharding-jdbc.version>3.0.0.M1</sharding-jdbc.version>
+        <sharding-sphere.version>4.0.0-RC2</sharding-sphere.version>
         <slf4j.version>1.7.21</slf4j.version>
         <spring.version>5.1.3.RELEASE</spring.version>
         <spring.redis.version>2.0.12.RELEASE</spring.redis.version>
@@ -237,6 +237,12 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>jsr305</artifactId>
+                        <groupId>com.google.code.findbugs</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <!-- Memcached client -->
@@ -353,13 +359,13 @@
             </dependency>
 
             <dependency>
-                <groupId>io.shardingsphere</groupId>
+                <groupId>org.apache.shardingsphere</groupId>
                 <artifactId>sharding-jdbc-spring-namespace</artifactId>
-                <version>${sharding-jdbc.version}</version>
+                <version>${sharding-sphere.version}</version>
                 <exclusions>
                     <exclusion>
-                        <groupId>org.yaml</groupId>
                         <artifactId>snakeyaml</artifactId>
+                        <groupId>org.yaml</groupId>
                     </exclusion>
                 </exclusions>
             </dependency>
