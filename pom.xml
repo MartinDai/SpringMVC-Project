@@ -40,7 +40,7 @@
         <fastjson.version>1.2.60</fastjson.version>
         <guava.version>23.0</guava.version>
         <httpclient.version>4.5.5</httpclient.version>
-        <jackson.version>2.9.10</jackson.version>
+        <jackson.version>2.10.0</jackson.version>
         <junit.version>4.12</junit.version>
         <lettuce.version>5.0.4.RELEASE</lettuce.version>
         <memcached.version>3.0.2</memcached.version>
