@@ -122,9 +122,9 @@ public class ZkController extends BaseController {
 
     private static class ZkLockerHolder {
 
-        private static InterProcessMutex xLock;
+        private static final InterProcessMutex xLock;
 
-        private static InterProcessReadWriteLock readWriteLock;
+        private static final InterProcessReadWriteLock readWriteLock;
 
         static {
             CuratorFramework client = CuratorFrameworkFactory.newClient(
