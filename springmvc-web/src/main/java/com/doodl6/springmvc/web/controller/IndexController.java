@@ -4,31 +4,25 @@ import com.doodl6.springmvc.client.api.FirstDubboService;
 import com.doodl6.springmvc.client.request.GetDubboInfoRequest;
 import com.doodl6.springmvc.client.response.GetDubboInfoResponse;
 import com.doodl6.springmvc.common.check.CheckUtil;
-import com.doodl6.springmvc.common.excel.*;
 import com.doodl6.springmvc.web.aspect.TraceIdHolder;
-import com.doodl6.springmvc.web.constant.WebConstants;
 import com.doodl6.springmvc.web.request.CheckParameterRequest;
 import com.doodl6.springmvc.web.response.CheckParameterResult;
 import com.doodl6.springmvc.web.response.base.BaseResponse;
 import com.doodl6.springmvc.web.response.base.MapResponse;
 import com.doodl6.springmvc.web.response.base.ResponseCode;
-import com.doodl6.springmvc.web.util.ResponseUtil;
-import com.doodl6.springmvc.web.vo.ExcelVo;
-import com.google.common.collect.Lists;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import com.google.common.collect.Maps;
+import io.netty.util.internal.PlatformDependent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import sun.misc.JavaNioAccess;
+import sun.misc.SharedSecrets;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * 首页控制类
@@ -89,6 +83,31 @@ public class IndexController extends BaseController {
         response.setData(result);
 
         return response;
+    }
+
+    /**
+     * 获取堆外内存使用情况
+     */
+    @RequestMapping(value = "/getDirectMemoryUsage")
+    public BaseResponse<Map<String, Long>> getDirectMemoryUsage() throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+        Map<String, Long> directMemoryUsageMap = Maps.newHashMap();
+
+        Method getJavaNioAccessMethod = SharedSecrets.class.getDeclaredMethod("getJavaNioAccess");
+        JavaNioAccess javaNioAccess = (JavaNioAccess) getJavaNioAccessMethod.invoke(SharedSecrets.class);
+        directMemoryUsageMap.put("directMemoryUsage", javaNioAccess.getDirectBufferPool().getMemoryUsed());
+
+        Field[] fields = PlatformDependent.class.getDeclaredFields();
+        for (Field field : fields) {
+            if (field.getName().equals("DIRECT_MEMORY_LIMIT")) {
+                field.setAccessible(true);
+                directMemoryUsageMap.put("maxDirectMemorySize", field.getLong(PlatformDependent.class));
+            } else if (field.getName().equals("DIRECT_MEMORY_COUNTER")) {
+                field.setAccessible(true);
+                directMemoryUsageMap.put("nettyDirectMemoryUsage", ((AtomicLong) field.get(PlatformDependent.class)).longValue());
+            }
+        }
+
+        return BaseResponse.success(directMemoryUsageMap);
     }
 
     /**
