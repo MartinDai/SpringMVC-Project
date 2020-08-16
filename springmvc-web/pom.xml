@@ -155,6 +155,7 @@
             <!-- 属性配置 -->
             <properties>
                 <finalName>SpringMVC-Project-dev</finalName>
+                <!-- 使用该目录下的配置文件覆盖默认的配置文件 -->
                 <configPath>src/main/config/dev</configPath>
                 <packagingExcludes>logs/,**/*.html,**/*.css,**/*.less,**/*.js,**/*.png,**/*.jpg,**/*.gif
                 </packagingExcludes>
@@ -167,34 +168,6 @@
             </build>
         </profile>
 
-        <profile>
-            <id>test</id>
-            <properties>
-                <finalName>SpringMVC-Project-test</finalName>
-                <configPath>src/main/config/test</configPath>
-                <packagingExcludes>logs/,**/*.html,**/*.css,**/*.less,**/*.js,**/*.png,**/*.jpg,**/*.gif
-                </packagingExcludes>
-            </properties>
-            <build>
-                <filters>
-                    <filter>src/main/properties/test.properties</filter>
-                </filters>
-            </build>
-        </profile>
-
-        <profile>
-            <id>production</id>
-            <properties>
-                <finalName>SpringMVC-Project-production</finalName>
-                <configPath>src/main/config/production</configPath>
-                <packagingExcludes/>
-            </properties>
-            <build>
-                <filters>
-                    <filter>src/main/properties/production.properties</filter>
-                </filters>
-            </build>
-        </profile>
     </profiles>
 
 </project>
