@@ -47,13 +47,14 @@
         <mybatis.version>3.4.6</mybatis.version>
         <mybatis.spring.version>1.3.2</mybatis.spring.version>
         <mysql.version>8.0.16</mysql.version>
+        <nacos.version>0.3.6</nacos.version>
         <perf4j.version>0.9.16</perf4j.version>
         <poi.version>3.17</poi.version>
         <rocketmq.version>4.3.0</rocketmq.version>
         <servlet.version>3.1.0</servlet.version>
         <sharding-sphere.version>4.0.0-RC2</sharding-sphere.version>
         <slf4j.version>1.7.21</slf4j.version>
-        <spring.version>5.2.3.RELEASE</spring.version>
+        <spring.version>5.1.6.RELEASE</spring.version>
         <spring.redis.version>2.0.12.RELEASE</spring.redis.version>
         <xmemcached.version>2.4.3</xmemcached.version>
         <zk.version>3.4.14</zk.version>
@@ -437,6 +438,24 @@
                 <artifactId>perf4j</artifactId>
                 <version>${perf4j.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.nacos</groupId>
+                <artifactId>nacos-spring-context</artifactId>
+                <version>${nacos.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.11</version>
+            </dependency>
+
+            <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.23</version>
+        </dependency>
 
         </dependencies>
     </dependencyManagement>

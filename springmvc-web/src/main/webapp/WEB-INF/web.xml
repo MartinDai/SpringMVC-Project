@@ -8,7 +8,12 @@
     <!-- Spring Config Location -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:spring/*.xml</param-value>
+        <param-value>
+            classpath:spring/spring-base.xml,
+            classpath:spring/spring-datasource.xml,
+            classpath:spring/spring-dubbo.xml,
+            classpath:spring/spring-nacos.xml
+        </param-value>
     </context-param>
 
     <context-param>

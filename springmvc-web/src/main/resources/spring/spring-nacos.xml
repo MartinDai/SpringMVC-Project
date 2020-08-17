@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:nacos="http://nacos.io/schema/nacos"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://nacos.io/schema/nacos http://nacos.io/schema/nacos.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--nacos配置，这里是使用配置文件的方式,这只是其中的一种方式-->
+    <!--开启注解-->
+    <nacos:annotation-driven/>
+    <!--指定nacos配置地址-->
+    <nacos:global-properties server-addr="127.0.0.1:8848"/>
+    <!--指定dataId,group-id, 是否是自动刷新-->
+    <nacos:property-source data-id="doodl6" group-id="spring-mvc" auto-refreshed="true"/>
+</beans>
