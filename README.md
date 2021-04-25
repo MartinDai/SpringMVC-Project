@@ -2,6 +2,8 @@
 
 一个整合了一些常用功能的SpringMVC项目。
 
+# 本项目已停止更新，请关注模块划分更合理，功能更多，组合更灵活的SpringBoot项目：https://github.com/MartinDai/SpringBoot-Project
+
 ## 框架
 
 - SpringMVC
