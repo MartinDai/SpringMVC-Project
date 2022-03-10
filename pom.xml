@@ -49,7 +49,7 @@
         <mysql.version>8.0.16</mysql.version>
         <nacos.version>0.3.6</nacos.version>
         <perf4j.version>0.9.16</perf4j.version>
-        <poi.version>3.17</poi.version>
+        <poi.version>5.2.1</poi.version>
         <rocketmq.version>4.3.0</rocketmq.version>
         <servlet.version>3.1.0</servlet.version>
         <sharding-sphere.version>4.1.1</sharding-sphere.version>
